@@ -81,3 +81,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGlsaXNhdGV1ciI6M
 
 ###Subscribe data
 GET http://localhost:3000/iot/subscribe
+
+###Publish command
+POST http://localhost:3000/iot/publish
+Content-Type: application/json
+
+{
+    "message":"ON"
+}

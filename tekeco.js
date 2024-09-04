@@ -21,11 +21,15 @@ io.on('connection', (socket) => {
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
         // After connecting, you may want to publish/subscribe to topics
-        device.publish('esp32/pub', JSON.stringify({ key: 'value' }));
+        device.subscribe('esp32/pzem',(error,payload)=>{
+            if(error) console.log(error)
+            device.emit('message',"esp32/pzem",JSON.stringify(payload))
+        })
+        
     });
 
     device.on('message',(topic,payload)=>{
-        socket.emit('mqtt_message',JSON.parse(payload.toString()))
+        socket.emit('send_stats',JSON.parse(payload.toString()))
     })
 
     socket.on('disconnect', () => {
