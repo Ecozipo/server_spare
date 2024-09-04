@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String
+  nom       String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Managing  used tokens
+model UsedToken {
+  id    Int    @id @default(autoincrement())
+  token String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TypeProfessionnel {
+  id   Int    @id @default(autoincrement())
+  type String
+
+  type_pro Professionnel[]
+}
+
+model Quartier {
+  id       Int    @id @default(autoincrement())
+  quartier String
+
+  Professionnel Professionnel[]
+  Utilisateur   Utilisateur[]
+}
+
+model Utilisateur {
+  id       Int    @id @default(autoincrement())
+  nom      String
+  mail     String
+  password String
+  quartier Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Quartier Quartier @relation(fields: [quartier], references: [id])
+  Module   Module[]
+  Achat    Achat[]
+}
+
+model Professionnel {
+  id        Int    @id @default(autoincrement())
+  nom       String
+  mail      String
+  telephone String
+  quartier  Int
+  type_pro  Int
+
+  Quartier          Quartier          @relation(fields: [quartier], references: [id])
+  TypeProfessionnel TypeProfessionnel @relation(fields: [type_pro], references: [id])
+}
+
+model Fournisseur {
+  id        Int    @id @default(autoincrement())
+  nom       String
+  telephone String
+  quartier  Int
+  image     String
+  url       String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TypeModule {
+  id    Int    @id @default(autoincrement())
+  type  String
+  image String
+  url   String
+
+  type_module Module[]
+}
+
+model Module {
+  id          Int    @id @default(autoincrement())
+  nom         String
+  type        Int
+  utilisateur Int
+  prix        Int
+  reference   String
+
+  Utilisateur Utilisateur @relation(fields: [utilisateur], references: [id])
+  TypeModule  TypeModule  @relation(fields: [type], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  Achat       Achat[]
+}
+
+model Achat {
+  id          Int @id @default(autoincrement())
+  utilisateur Int
+  module      Int
+
+  Utilisateur Utilisateur @relation(fields: [utilisateur], references: [id])
+  Module      Module      @relation(fields: [module], references: [id])
+  payedAt     DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
