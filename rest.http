@@ -77,3 +77,7 @@ Content-Type: application/json
 POST http://localhost:3000/admin/auth/logout
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGlsaXNhdGV1ciI6MSwibWFpbCI6Impvc3N1YzRAZ21haWwuY29tIiwiaWF0IjoxNzI1NDM1NzE2fQ.ItHKrjSEIenJCRKCQD0AqyJJBvzwU0eio9WysijgwPI
+
+
+###Subscribe data
+GET http://localhost:3000/iot/subscribe

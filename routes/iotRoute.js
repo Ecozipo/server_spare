@@ -4,6 +4,6 @@ import { publishCommand, subscribeData } from '../controllers/IotController.js';
 const router = Router();
 
 router.post('/publish', publishCommand);
-router.post('/subscribe', subscribeData);
+router.get('/subscribe', subscribeData);
 
 export default router;

@@ -1,6 +1,7 @@
 import awsIot from 'aws-iot-device-sdk';
 import express from 'express';
 
+
 const app = express()
 
 const device = awsIot.device({
@@ -10,20 +11,13 @@ const device = awsIot.device({
     clientId: 'Node',
     host: 'a27g25yfuax5ui-ats.iot.us-east-1.amazonaws.com'
 });
-device.on('connect', function () {
-    console.log('Connected to AWS IoT Core');
-    // After connecting, you may want to publish/subscribe to topics
-    device.subscribe('esp32/pzem', (err, paylod, hafa) => {
-        if (err) console.log(err)
-        console.log(paylod)
-        device.emit("message", "esp32/pzem", JSON.stringify(paylod))
-    });
-    device.publish('esp32/pub', JSON.stringify({ key: 'value' }));
-});
+// device.on('connect', function () {
+//     console.log('Connected to AWS IoT Core');
+//     // After connecting, you may want to publish/subscribe to topics
+//     device.publish('esp32/pub', JSON.stringify({ key: 'value' }));
+// });
 
-device.on('message', function (topic, payload) {
-    console.log('message', topic, payload.toString());
-});
+
 
 app.post('/publish', (req, res) => {
     const message = req.body;
