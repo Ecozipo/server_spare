@@ -1,4 +1,4 @@
-import device from "./deviceController.js";
+import device from "../utils/awsDevice.js";
 import { io } from "socket.io-client";
 
 
@@ -19,7 +19,28 @@ export const publishCommand = async (req, res) => {
 };
 
 export const subscribeData = async (req, res) => {
-    socket.on("send_stats",(data)=>{
+    let power = 0;
+    console.log(power)
+    socket.on("send_stats", (data) => {
+        console.log("listening to data")
+        if (data.power) {
+            power += data.power
+        }
+        res.status(200).json({ power })
         console.log(data)
+    })
+};
+
+
+export const totalPower = async (req, res) => {
+    let power = 0;
+
+}
+
+export const subscribeStateLed = async (req, res) => {
+    socket.on("state_led", (data) => {
+        console.log("state of the leds")
+        console.log(data)
+        // res.status(200).json(data)
     })
 };

@@ -6,7 +6,7 @@ import iotRoute from "./routes/iotRoute.js";
 import ProfessionalRoute from "./routes/ProfessionalRoute.js";
 import AdminAuthroute from './routes/admin/AdminAuthroute.js'
 import io from "./utils/socketio.js";
-import device from "./controllers/deviceController.js";
+import device from './utils/awsDevice.js'
 
 const app = express();
 app.use(express.json());
@@ -20,16 +20,28 @@ io.on('connection', (socket) => {
 
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
+
         // After connecting, you may want to publish/subscribe to topics
-        device.subscribe('esp32/pzem',(error,payload)=>{
-            if(error) console.log(error)
-            device.emit('message',"esp32/pzem",JSON.stringify(payload))
+        device.subscribe('esp32/pzem', (error, payload) => {
+            if (error) console.log(error)
+            device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
-        
+
+        device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
+            if (err) console.log(err)
+            console.log(payload)
+            device.emit("state_led", "accepted", JSON.stringify(payload))
+        });
+
     });
 
-    device.on('message',(topic,payload)=>{
-        socket.emit('send_stats',JSON.parse(payload.toString()))
+
+    device.on('message', (topic, payload) => {
+        socket.emit('send_stats', JSON.parse(payload.toString()))
+    })
+
+    device.on('state_led', (topic, payload) => {
+        socket.emit('state_led', JSON.parse(payload.toString()))
     })
 
     socket.on('disconnect', () => {

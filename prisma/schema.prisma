@@ -50,9 +50,10 @@ model Utilisateur {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Quartier Quartier @relation(fields: [quartier], references: [id])
-  Module   Module[]
-  Achat    Achat[]
+  Quartier      Quartier        @relation(fields: [quartier], references: [id])
+  Achat         Achat[]
+  Consomation   Consomation[]
+  Notifications Notifications[]
 }
 
 model Professionnel {
@@ -89,18 +90,16 @@ model TypeModule {
 }
 
 model Module {
-  id          Int    @id @default(autoincrement())
-  nom         String
-  type        Int
-  utilisateur Int
-  prix        Int
-  reference   String
+  id        Int    @id @default(autoincrement())
+  nom       String
+  type      Int
+  prix      Int
+  reference String
 
-  Utilisateur Utilisateur @relation(fields: [utilisateur], references: [id])
-  TypeModule  TypeModule  @relation(fields: [type], references: [id])
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  Achat       Achat[]
+  TypeModule TypeModule @relation(fields: [type], references: [id])
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Achat      Achat[]
 }
 
 model Achat {
@@ -112,4 +111,26 @@ model Achat {
   Module      Module      @relation(fields: [module], references: [id])
   payedAt     DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+}
+
+// -----------------------------------------Consomation-------------------------------------
+model Consomation {
+  id                Int      @id @default(autoincrement())
+  utilisateur       Int
+  valeur            Int
+  date_consommation DateTime @default(now())
+
+  Utilisateur Utilisateur @relation(fields: [utilisateur], references: [id])
+}
+
+// ----------------------------------------Notifications------------------------------------
+
+model Notifications {
+  id          Int      @id @default(autoincrement())
+  utilisateur Int
+  subject     String
+  titre       String
+  created_at  DateTime @default(now())
+
+  Utilisateur Utilisateur @relation(fields: [utilisateur], references: [id])
 }
