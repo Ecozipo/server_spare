@@ -23,7 +23,7 @@ POST http://localhost:3000/auth/verifyToken
 Content-Type: application/json
 
 {
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGlsaXNhdGV1ciI6MiwibWFpbCI6ImxhcnJ5am9zc3VjNEBnbWFpbC5jb20iLCJpYXQiOjE3MjUyODAxNDd9.D7VrLWkvNx6nigcOdE5Ew9oaVaP6X4zfDEmjsEYGsls"
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGlsaXNhdGV1ciI6MSwibWFpbCI6ImxhcnJ5am9zc3VjNEBnbWFpbC5jb20iLCJpYXQiOjE3MjY2NTYzNjV9.f0U-jg1wb4hKPoLXo1Gu2rgFhKavmnC003AQtY2GJL4"
 }
 
 ###Logout
@@ -59,7 +59,7 @@ Content-Type: application/json
 ####Admin logout
 POST http://localhost:3000/admin/auth/logout
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGlsaXNhdGV1ciI6MSwibWFpbCI6Impvc3N1YzRAZ21haWwuY29tIiwiaWF0IjoxNzI1NDM1NzE2fQ.ItHKrjSEIenJCRKCQD0AqyJJBvzwU0eio9WysijgwPI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6MSwiZW1haWwiOiJqb3NzdWM0QGdtYWlsLmNvbSIsImlhdCI6MTcyNjY2MTE1MX0.Er155n0Qufun_wa0DcgCbXEMbCVwz5T0o9FTNWVXBPQ
 
 
 ###Subscribe data
@@ -71,4 +71,4 @@ Content-Type: application/json
 
 {
     "message":"OFF"
-}
+} 
