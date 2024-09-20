@@ -6,7 +6,7 @@ Content-Type: application/json
     "nom": "Larry Jossuca",
     "mail": "larryjossuc4@gmail.com",
     "password": "LarryJossuc4...",
-    "quartier": 1
+    "quartier": 2
 }
 
 ###LOGIN
@@ -64,6 +64,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6MSwiZW1ha
 
 ###Subscribe data
 GET http://localhost:3000/iot/subscribe
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGlsaXNhdGV1ciI6MiwibWFpbCI6ImxhcnJ5am9zc3VjNEBnbWFpbC5jb20iLCJpYXQiOjE3MjY4MzA3NjR9.DEO7FyCvpC0Wl3AsvyRhFTQR2UyXzifuPRo_RuUdmwA
+
 
 ###Publish command
 POST http://localhost:3000/iot/publish
