@@ -3,7 +3,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 export const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await prisma.utilisateur.findMany()
+        const allUsers = await prisma.utilisateur.findMany(
+            {
+
+                include: {
+                    Quartier: true,
+                },
+
+            }
+        )
 
         res.status(200).send({ allUsers })
 

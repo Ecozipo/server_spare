@@ -72,3 +72,18 @@ Content-Type: application/json
 {
     "message":"OFF"
 } 
+
+###Add device
+POST http://localhost:3000/device/new/2
+Content-Type: application/json
+
+{
+    "nom": "test",
+    "type": 1,
+    "prix": 10,
+    "reference": "test"
+}
+
+####Get all devices
+GET http://localhost:3000/device/all/2
+Content-Type: application/json
