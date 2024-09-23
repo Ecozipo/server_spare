@@ -66,10 +66,12 @@ io.on('connection', (socket) => {
         let data = parseFloat(payload)
         let marge = data * 2
         let i = 0
-        if (data >= marge && i === 0) {
+        if (data >= marge) {
             console.log("Alerte sur consommation")
-            setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
-            i=1
+            if (i === 0) {
+                setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
+            }
+            i = 1
         }
         socket.emit('vitesse', data)
     })
