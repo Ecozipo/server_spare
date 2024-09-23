@@ -14,8 +14,7 @@ const setNotification = async (notification) => {
                 subject
             }
         })
-
-        console.log({ newNotification })
+        
         // Emettre la notification
         device.emit('notification', 'sent', notification)
 
