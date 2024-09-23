@@ -15,6 +15,7 @@ const setNotification = async (notification) => {
             }
         })
 
+        console.log({ newNotification })
         // Emettre la notification
         device.emit('notification', 'sent', JSON.stringify(notification))
 
