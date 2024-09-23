@@ -71,11 +71,11 @@ export const subscribeData = async (req, res) => {
 
 };
 
-export const realTime = (req,res) => {
+export const realTime = (req, res) => {
   socket.on('realtime', (data) => {
     console.log(JSON.parse(data))
   })
-  
+  res.status(200).json({ data_sent: true });
 }
 
 export const totalPower = async (req, res) => {
