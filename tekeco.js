@@ -60,12 +60,12 @@ io.on('connection', (socket) => {
     })
 
     device.on('vitesse', (topic, payload) => {
-        let data = parseFloat(payload.toString())
+        let data = parseFloat(payload)
         socket.emit('vitesse', data)
     })
 
     device.on('consommation', (topic, payload) => {
-        let data = parseFloat(payload.toString())
+        let data = parseFloat(payload)
         socket.emit('consommation', data)
     })
 
