@@ -50,10 +50,8 @@ model Utilisateur {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Quartier      Quartier        @relation(fields: [quartier], references: [id])
-  Achat         Achat[]
-  Consomation   Consomation[]
-  Notifications Notifications[]
+  Quartier Quartier @relation(fields: [quartier], references: [id])
+  Achat    Achat[]
 }
 
 model Professionnel {
@@ -116,21 +114,15 @@ model Achat {
 // -----------------------------------------Consomation-------------------------------------
 model Consomation {
   id                Int      @id @default(autoincrement())
-  utilisateur       Int
-  valeur            Int
+  valeur            String
   date_consommation DateTime @default(now())
-
-  Utilisateur Utilisateur @relation(fields: [utilisateur], references: [id])
 }
 
 // ----------------------------------------Notifications------------------------------------
 
 model Notifications {
-  id          Int      @id @default(autoincrement())
-  utilisateur Int
-  subject     String
-  titre       String
-  created_at  DateTime @default(now())
-
-  Utilisateur Utilisateur @relation(fields: [utilisateur], references: [id])
+  id         Int      @id @default(autoincrement())
+  subject    String
+  titre      String
+  created_at DateTime @default(now())
 }

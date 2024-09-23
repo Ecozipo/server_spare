@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
             console.log(payload.toString())
             let data = JSON.stringify(payload)
             console.log(data)
-            device.emit('vitesse','esp32/pzem',data.power)
+            device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
@@ -127,4 +127,4 @@ app.listen(3000, () => {
 //     //
 // })
 
-// cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
+cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
