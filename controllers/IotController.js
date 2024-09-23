@@ -40,18 +40,18 @@ export const publishCommand = async (req, res) => {
 export const subscribeData = async (req, res) => {
 
   try {
-    const token = req.headers.authorization.split(" ")[1];
+    // const token = req.headers.authorization.split(" ")[1];
 
-    const { id } = jwt.decode(token).utilisateur;
+    // const { id } = jwt.decode(token).utilisateur;
 
-    const utilisateur = await prisma.utilisateur.findUnique({
-      where: { id: parseInt(id) },
-    });
+    // const utilisateur = await prisma.utilisateur.findUnique({
+    //   where: { id: parseInt(id) },
+    // });
 
-    if (!utilisateur) {
-      res.status(500).send({ errorMessage: "Utilisateur introuvable" });
-    }
-    setId(parseInt(id));
+    // if (!utilisateur) {
+    //   res.status(500).send({ errorMessage: "Utilisateur introuvable" });
+    // }
+    setId(parseInt(2));
 
     console.log(getPower());
     let lastValue = getPower();
