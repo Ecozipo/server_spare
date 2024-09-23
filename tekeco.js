@@ -36,6 +36,10 @@ io.on('connection', (socket) => {
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
             if (error) console.log(error)
+            let data = JSON.parse(payload.toString())
+            console.log(data)
+            device.emit('vitesse','esp32/pzem',data.power)
+            device.emit('consommation', 'esp32/pzem', data.energy)
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
 
@@ -54,6 +58,16 @@ io.on('connection', (socket) => {
         socket.emit('vitesse', data.power)
     })
 
+    device.on('vitesse', (topic, payload) => {
+        let data = JSON.parse(payload.toString())
+        socket.emit('vitesse', data)
+    })
+
+    device.on('consommation', (topic, payload) => {
+        let data = JSON.parse(payload.toString())
+        socket.emit('consommation', data)
+    })
+    
     device.on('realtime', (topic, payload) => {
         socket.emit('realtime', JSON.parse(payload.toString()))
     })
