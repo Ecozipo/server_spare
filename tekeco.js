@@ -136,3 +136,4 @@ app.listen(3000, () => {
 // })
 
 cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
+cron.schedule('* * * * *', () => { analyses() })
