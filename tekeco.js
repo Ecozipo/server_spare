@@ -59,15 +59,15 @@ io.on('connection', (socket) => {
     })
 
     device.on('vitesse', (topic, payload) => {
-        let data = JSON.parse(payload.toString())
+        let data = parseFloat(payload.toString())
         socket.emit('vitesse', data)
     })
 
     device.on('consommation', (topic, payload) => {
-        let data = JSON.parse(payload.toString())
+        let data = parseFloat(payload.toString())
         socket.emit('consommation', data)
     })
-    
+
     device.on('realtime', (topic, payload) => {
         socket.emit('realtime', JSON.parse(payload.toString()))
     })
