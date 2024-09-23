@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
 
 
     device.on('message', (topic, payload) => {
-        console.log(payload.toString())
+        // console.log(payload.toString())
         socket.emit('send_stats', JSON.parse(payload.toString()))
     })
 
@@ -57,17 +57,6 @@ io.on('connection', (socket) => {
 
 
         let data = JSON.parse(payload.toString())
-        // if (!data.power) { console.log("pas de power") }
-        // else {
-
-        //     console.log({ data: JSON.parse(payload.toString()) })
-        //     let somme = getPower()
-        //     let value = parseInt(data.power)
-
-        //     somme = getPower() + parseInt(value)
-        //     setPower(somme)
-        // }
-        // console.log(data)
         socket.emit('state_led', JSON.parse(payload.toString()))
 
     })

@@ -58,14 +58,13 @@ export const subscribeData = async (req, res) => {
 
     socket.on("send_stats", (data) => {
       console.log("listening to data");
-      if (data.power) {
-        setPower(parseInt(data.power) + lastValue);
-      }
-      res.status(200).json({ power: getPower() });
-      console.log(data);
+      let data = JSON.parse(data)
+
+      console.log(data.power)
+
     });
 
-    res.status(200).json({ message: { data_sent: "OK" } });
+    res.status(200).json({ message: { data_sent: true } });
   } catch (error) {
     console.log(error)
   }
