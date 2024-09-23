@@ -57,11 +57,14 @@ export const subscribeData = async (req, res) => {
     console.log(getPower());
     let lastValue = getPower();
 
-    socket.on("send_stats", (data) => {
-      console.log("listening to data");
+    socket.on("consommation", (data) => {
       console.log(data)
     });
 
+    socket.on("vitesse", (data) => {
+      console.log(data)
+    });
+    
     res.status(200).json({ message: { data_sent: true } });
   } catch (error) {
     console.log(error)

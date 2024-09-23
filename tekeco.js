@@ -49,7 +49,9 @@ io.on('connection', (socket) => {
 
 
     device.on('message', (topic, payload) => {
-        socket.emit('send_stats', JSON.parse(payload.toString()))
+        let data = JSON.parse(payload.toString())
+        socket.emit('consommation', data.energy)
+        socket.emit('vitesse', data.power)
     })
 
     device.on('realtime', (topic, payload) => {
