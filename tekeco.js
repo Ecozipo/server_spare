@@ -13,6 +13,7 @@ import ProfessionalRoute from "./routes/ProfessionalRoute.js"
 import AdminAuthroute from './routes/admin/AdminAuthroute.js'
 import AdminFournisseurRoute from './routes/admin/AdminFournisseurRoute.js'
 import FournisseurRoute from './routes/FournisseurRoute.js'
+import NotificationRoute from './routes/NotificationRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import { redisClient } from "./utils/redis.js"
 
@@ -49,6 +50,8 @@ io.on('connection', (socket) => {
             device.emit("state_led", "accepted", JSON.stringify(payload))
         });
 
+
+
     });
 
 
@@ -80,6 +83,10 @@ io.on('connection', (socket) => {
 
     })
 
+    socket.on('notification', (data) => {
+        console.log(data)
+    })
+
     socket.on('disconnect', () => {
         console.log('Client disconnected:', socket.id);
     });
@@ -100,6 +107,7 @@ app.use('/admin/shops', AdminFournisseurRoute);
 app.use('/shops', FournisseurRoute)
 app.use("/pro", ProfessionalRoute);
 app.use('/device', deviceRoute);
+app.use('/notification',NotificationRoute)
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
