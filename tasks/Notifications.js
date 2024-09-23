@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import device from "../utils/awsDevice";
+import device from "../utils/awsDevice.js";
 
 const prisma = new PrismaClient()
 
