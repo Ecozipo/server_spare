@@ -83,8 +83,8 @@ io.on('connection', (socket) => {
 
     })
 
-    socket.on('notification', (data) => {
-        socket.emit('notif', JSON.stringify(data))
+    device.on('notification', (data) => {
+        socket.emit('notification', JSON.stringify(data))
         console.log(data)
     })
 

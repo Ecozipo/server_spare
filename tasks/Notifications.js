@@ -1,14 +1,13 @@
 import { PrismaClient } from "@prisma/client";
-import { io } from "socket.io-client";
+import device from "../utils/awsDevice";
 
 const prisma = new PrismaClient()
-const socket = io("ws://localhost:5000");
 
 const setNotification = (notification) => {
 
-    const {titre,subject} = notification
+    const { titre, subject } = notification
 
-    try{
+    try {
         const newNotification = prisma.notifications.create({
             data: {
                 titre,
@@ -17,13 +16,13 @@ const setNotification = (notification) => {
         })
 
         // Emettre la notification
-        socket.emit('notification',JSON.stringify(notification))
+        device.emit('notification', 'sent', JSON.stringify(notification))
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 
-    
+
 }
 
 export default setNotification
