@@ -38,31 +38,36 @@ export const publishCommand = async (req, res) => {
 };
 
 export const subscribeData = async (req, res) => {
-  // const token = req.headers.authorization.split(" ")[1];
 
-  // const { id } = jwt.decode(token).utilisateur;
-
-  // const utilisateur = await prisma.utilisateur.findUnique({
-  //   where: { id: parseInt(id) },
-  // });
-
-  // if (!utilisateur) {
-  //   res.status(500).send({ errorMessage: "Utilisateur introuvable" });
-  // }
-  // setId(parseInt(id));
-
-  console.log(getPower());
-  let lastValue = getPower();
-
-  socket.on("send_stats", (data) => {
-    console.log("listening to data");
-    if (data.power) {
-      setPower(parseInt(data.power) + lastValue);
-    }
-    res.status(200).json({ power: getPower() });
-    console.log(data);
-  });
+  try{
+    const token = req.headers.authorization.split(" ")[1];
   
+    const { id } = jwt.decode(token).utilisateur;
+  
+    const utilisateur = await prisma.utilisateur.findUnique({
+      where: { id: parseInt(id) },
+    });
+  
+    if (!utilisateur) {
+      res.status(500).send({ errorMessage: "Utilisateur introuvable" });
+    }
+    setId(parseInt(id));
+  
+    console.log(getPower());
+    let lastValue = getPower();
+  
+    socket.on("send_stats", (data) => {
+      console.log("listening to data");
+      if (data.power) {
+        setPower(parseInt(data.power) + lastValue);
+      }
+      res.status(200).json({ power: getPower() });
+      console.log(data);
+    });
+  }catch(error){
+    console.log(error)
+  }
+
 };
 
 export const totalPower = async (req, res) => {
