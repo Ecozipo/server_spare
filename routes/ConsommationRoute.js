@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { hebdomadaire, journalier, mensuel, restartByZero } from "../controllers/ConsommationController";
+import { hebdomadaire, journalier, mensuel, restartByZero } from "../controllers/ConsommationController.js";
 
 const router = Router()
 
-router.get('/journalier/:id', journalier)
-router.get('/hebdomadaire/:id',hebdomadaire)
-router.get('/mensuel/:id',mensuel)
-router.get('/restart/:id',restartByZero)
+router.get('/journalier', journalier)
+router.get('/hebdomadaire',hebdomadaire)
+router.get('/mensuel',mensuel)
+router.get('/restart',restartByZero)
 
 export default router
