@@ -15,6 +15,7 @@ import AdminFournisseurRoute from './routes/admin/AdminFournisseurRoute.js'
 import FournisseurRoute from './routes/FournisseurRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import { redisClient } from "./utils/redis.js"
+import { log } from "console"
 
 const app = express();
 app.use(express.json());
@@ -48,6 +49,7 @@ io.on('connection', (socket) => {
 
 
     device.on('message', (topic, payload) => {
+        console.log(payload.toString())
         socket.emit('send_stats', JSON.parse(payload.toString()))
     })
 
