@@ -62,17 +62,27 @@ io.on('connection', (socket) => {
         socket.emit('vitesse', data.power)
     })
 
+    let notificationSent = false; 
+
     device.on('vitesse', (topic, payload) => {
+
         let data = parseFloat(payload)
         let marge = data * 2
-        if (data >= marge) {
-            console.log("Alerte sur consommation")
+
+        if (data >= marge && !notificationSent) {
+
+            console.log("Alerte sur consommation");
             setNotification({
                 titre: "Alerte sur consommation",
                 subject: "Votre consommation est très en hausse"
-            })
+            });
+
+            notificationSent = true
+        } 
+
+        if (data < marge) {
+            notificationSent = false
         }
-        socket.emit('vitesse', data)
     })
 
     device.on('consommation', (topic, payload) => {
