@@ -84,6 +84,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('notification', (data) => {
+        socket.emit('notif', JSON.stringify(data))
         console.log(data)
     })
 
@@ -107,7 +108,7 @@ app.use('/admin/shops', AdminFournisseurRoute);
 app.use('/shops', FournisseurRoute)
 app.use("/pro", ProfessionalRoute);
 app.use('/device', deviceRoute);
-app.use('/notification',NotificationRoute)
+app.use('/notification', NotificationRoute)
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
