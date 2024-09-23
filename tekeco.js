@@ -83,9 +83,9 @@ io.on('connection', (socket) => {
 
     })
 
-    device.on('notification', (data) => {
-        socket.emit('notification', JSON.stringify(data))
-        console.log(data)
+    device.on('notification', (topic, payload) => {
+        socket.emit('notification', JSON.stringify(payload))
+        console.log(payload)
     })
 
     socket.on('disconnect', () => {
