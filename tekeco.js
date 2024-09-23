@@ -36,7 +36,8 @@ io.on('connection', (socket) => {
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
             if (error) console.log(error)
-            let data = JSON.parse(payload)
+            console.log(payload.toString())
+            let data = JSON.stringify(payload)
             console.log(data)
             device.emit('vitesse','esp32/pzem',data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
