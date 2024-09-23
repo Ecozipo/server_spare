@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { io } from "socket.io-client";
 import moment from "moment-timezone";
-import setNotification from "./Notifications";
+import setNotification from "./Notifications.js";
 
 const prisma = new PrismaClient()
 const socket = io("ws://localhost:5000")
