@@ -65,8 +65,10 @@ io.on('connection', (socket) => {
     device.on('vitesse', (topic, payload) => {
         let data = parseFloat(payload)
         let marge = data * 2
-        if (data >= marge) {
+        let i = 0
+        if (data >= marge && i === 0) {
             setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
+            i++
         }
         socket.emit('vitesse', data)
     })
@@ -141,4 +143,3 @@ app.listen(3000, () => {
 
 cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
 cron.schedule('* * * * *', () => { analyses() })
-cron.schedule('* * * * *', () => { newModuleConnectedAnalyse() })
