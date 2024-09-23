@@ -58,9 +58,9 @@ export const subscribeData = async (req, res) => {
 
     socket.on("send_stats", (data) => {
       console.log("listening to data");
-      let data = JSON.parse(data)
+      let dataValue = JSON.parse(data)
 
-      console.log(data.power)
+      console.log(dataValue, dataValue.power)
 
     });
 

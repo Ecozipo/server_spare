@@ -49,7 +49,6 @@ io.on('connection', (socket) => {
 
 
     device.on('message', (topic, payload) => {
-        // console.log(payload.toString())
         socket.emit('send_stats', JSON.parse(payload.toString()))
     })
 
