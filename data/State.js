@@ -31,18 +31,12 @@ export const setData = (id, power) => {
 }
 
 export const saveValue = async (value) => {
-    const { id, power } = value;
-
-    const utilisateur = await prisma.utilisateur.findUnique({ where: { id: parseInt(id) } })
-
-    if (!utilisateur) {
-        console.log({ errorMessage: "Utilisateur introuvable" })
-    }
+    const { power } = value;
 
     try {
         const creation = await prisma.consomation.create({
             data: {
-                valeur: parseInt(power),
+                valeur: power.toString(),
                 date_consommation: new Date()
             }
         })
