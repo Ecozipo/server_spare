@@ -4,17 +4,7 @@ import setNotification from "../tasks/Notifications.js";
 const prisma = new PrismaClient()
 
 export const getAllNotifications = (req, res) => {
-    const { id } = req.params
-    const utilisateur = prisma.utilisateur.findUnique(
-        {
-            where: { id: parseInt(id) }
-        }
-    )
-
-    if (!utilisateur) res.status(500).json({ errorMessage: "L'utilisateur n'existe pas" })
-
-    const notifications = prisma.notifications.findMany({ where: { id: parseInt(id) } })
-
+    const notifications = prisma.notifications.findMany()
     res.status(200).json(notifications)
 }
 
