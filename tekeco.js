@@ -64,6 +64,10 @@ io.on('connection', (socket) => {
 
     device.on('vitesse', (topic, payload) => {
         let data = parseFloat(payload)
+        let marge = data * 2
+        if (data >= marge) {
+            setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
+        }
         socket.emit('vitesse', data)
     })
 

@@ -32,7 +32,7 @@ export const newModuleConnectedAnalyse = () => {
         console.log(data)
         let marge = data * 2
 
-        if (data >= marge && i === 0) {
+        if (data >= marge) {
             setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
         }
     })
