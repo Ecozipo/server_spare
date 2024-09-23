@@ -39,23 +39,23 @@ export const publishCommand = async (req, res) => {
 
 export const subscribeData = async (req, res) => {
 
-  try{
+  try {
     const token = req.headers.authorization.split(" ")[1];
-  
+
     const { id } = jwt.decode(token).utilisateur;
-  
+
     const utilisateur = await prisma.utilisateur.findUnique({
       where: { id: parseInt(id) },
     });
-  
+
     if (!utilisateur) {
       res.status(500).send({ errorMessage: "Utilisateur introuvable" });
     }
     setId(parseInt(id));
-  
+
     console.log(getPower());
     let lastValue = getPower();
-  
+
     socket.on("send_stats", (data) => {
       console.log("listening to data");
       if (data.power) {
@@ -64,7 +64,9 @@ export const subscribeData = async (req, res) => {
       res.status(200).json({ power: getPower() });
       console.log(data);
     });
-  }catch(error){
+
+    res.status(200).json({ message: { data_sent: "OK" } });
+  } catch (error) {
     console.log(error)
   }
 
