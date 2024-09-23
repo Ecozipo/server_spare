@@ -42,7 +42,6 @@ export const saveValue = async (value) => {
     try {
         const creation = await prisma.consomation.create({
             data: {
-                utilisateur: parseInt(id),
                 valeur: parseInt(power),
                 date_consommation: new Date()
             }
