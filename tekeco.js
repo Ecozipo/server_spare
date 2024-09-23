@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
     })
 
     device.on('realtime', (topic, payload) => {
-        socket.emit('realtime', JSON.parse(payload.toString()))
+        socket.emit('realtime', payload.toString())
     })
 
     device.on('state_led', (topic, payload) => {
