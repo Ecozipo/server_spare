@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import { getPower, setPower, setId } from "../data/State.js";
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
+import { log } from "console";
 // import { redisClient } from "../utils/redis.js";
 // import { createClient } from "redis";
 
@@ -58,10 +59,7 @@ export const subscribeData = async (req, res) => {
 
     socket.on("send_stats", (data) => {
       console.log("listening to data");
-      let dataValue = JSON.parse(data)
-
-      console.log(dataValue, dataValue.power)
-
+      console.log(data)
     });
 
     res.status(200).json({ message: { data_sent: true } });
