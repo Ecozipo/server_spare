@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
         setInterval(() => {
-            device.emit('realtime', 'accepted',JSON.stringify({ power: Math.floor(Math.random() * 100) }))
+            device.emit('realtime', 'accepted', JSON.stringify(Math.floor(Math.random() * 100)))
         }, 1000)
 
         // After connecting, you may want to publish/subscribe to topics
@@ -52,10 +52,10 @@ io.on('connection', (socket) => {
         socket.emit('send_stats', JSON.parse(payload.toString()))
     })
 
-    device.on('realtime',(topic,payload)=>{
-        socket.emit('realtime',JSON.parse(payload.toString()))
+    device.on('realtime', (topic, payload) => {
+        socket.emit('realtime', JSON.parse(payload.toString()))
     })
-    
+
     device.on('state_led', (topic, payload) => {
 
 
