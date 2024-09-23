@@ -34,6 +34,7 @@ export const newModuleConnectedAnalyse = () => {
 
         if (data >= marge) {
             setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
+            return 
         }
     })
 }
