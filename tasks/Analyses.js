@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { io } from "socket.io-client";
 import moment from "moment-timezone";
+import setNotification from "./Notifications";
 
 const prisma = new PrismaClient()
 const socket = io("ws://localhost:5000")
@@ -26,8 +27,13 @@ export const analyses = async () => {
 
 }
 
-export const newModuleConnectedAnalyse = async () => {
+export const newModuleConnectedAnalyse = () => {
     socket.on('vitesse', (data) => {
         console.log(data)
+        let marge = data * 2
+
+        if (data >= marge) {
+            setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
+        }
     })
 }

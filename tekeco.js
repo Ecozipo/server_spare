@@ -5,6 +5,7 @@ import path, { dirname } from "path"
 import cron from "node-cron"
 import moment from "moment-timezone"
 import { saveValue, getId, getPower, setPower } from "./data/State.js"
+import { analyses, newModuleConnectedAnalyse } from "./tasks/Analyses.js"
 import device from './utils/awsDevice.js'
 import UserRoute from "./routes/admin/UserRoute.js"
 import AuthRoute from "./routes/AuthRoute.js"
@@ -137,3 +138,4 @@ app.listen(3000, () => {
 
 cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
 cron.schedule('* * * * *', () => { analyses() })
+cron.schedule('* * * * *', () => { newModuleConnectedAnalyse() })
