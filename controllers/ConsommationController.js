@@ -2,8 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
 
-export const journalier = (req, res) => {
-
+export const journalier = async (req, res) => {
+    const consommations = await prisma.consomation.findMany()
+    res.status(200).json(consommations)
 }
 
 export const hebdomadaire = (req, res) => {

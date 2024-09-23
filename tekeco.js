@@ -15,7 +15,6 @@ import AdminFournisseurRoute from './routes/admin/AdminFournisseurRoute.js'
 import FournisseurRoute from './routes/FournisseurRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import { redisClient } from "./utils/redis.js"
-import { log } from "console"
 
 const app = express();
 app.use(express.json());
@@ -112,7 +111,7 @@ app.listen(3000, () => {
 
 // cron.schedule('* * * * *', async () => {
 //     console.log("Cron job running at:")
-//     const now = moment().tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('HH:mm:ss')
+//     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
 //     console.log(now.toString())
 //     const temps = now.split(":")
 

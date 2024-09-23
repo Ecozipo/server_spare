@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import setNotification from "../tasks/Notifications";
 
 const prisma = new PrismaClient()
 
@@ -28,6 +29,16 @@ export const deleteNotification = (req, res) => {
     res.status(200).send({ success: "OK", deleteNotification })
 }
 
-export const createNotification = (req, res) => {
+export const createNotification = async (req, res) => {
+    const {titre,subject} = req.body
+    try{
+        setNotification({titre,subject})
+        res.status(200).json({ message: "Notification créée" })
+    }catch(error){
+        res.status(500).json({ errorMessage: "Erreur de connexion" })
+    }
+}
+
+export const getNotification = (req,res) => {
     
 }
