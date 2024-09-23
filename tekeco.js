@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
         //     somme = getPower() + parseInt(value)
         //     setPower(somme)
         // }
-        console.log(data)
+        // console.log(data)
         socket.emit('state_led', JSON.parse(payload.toString()))
 
     })
