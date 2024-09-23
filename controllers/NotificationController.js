@@ -3,8 +3,8 @@ import setNotification from "../tasks/Notifications.js";
 
 const prisma = new PrismaClient()
 
-export const getAllNotifications = (req, res) => {
-    const notifications = prisma.notifications.findMany()
+export const getAllNotifications = async (req, res) => {
+    const notifications = await prisma.notifications.findMany()
     res.status(200).json(notifications)
 }
 

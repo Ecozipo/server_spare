@@ -17,7 +17,7 @@ const setNotification = async (notification) => {
 
         console.log({ newNotification })
         // Emettre la notification
-        device.emit('notification', 'sent', JSON.parse(notification))
+        device.emit('notification', 'sent', notification)
 
     } catch (error) {
         console.log(error)
