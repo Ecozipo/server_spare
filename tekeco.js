@@ -28,9 +28,9 @@ io.on('connection', (socket) => {
 
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
-        setInterval(() => {
-            device.emit('state_led', 'accepted', JSON.stringify({ power: Math.floor(Math.random() * 10) }))
-        }, 1000)
+        // setInterval(() => {
+        //     device.emit('state_led', 'accepted', JSON.stringify({ power: Math.floor(Math.random() * 10) }))
+        // }, 1000)
 
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
@@ -115,4 +115,4 @@ app.listen(3000, () => {
 //     // 
 // })
 
-cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
+// cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
