@@ -28,14 +28,12 @@ export const analyses = async () => {
 }
 
 export const newModuleConnectedAnalyse = () => {
-    let i = 0
     socket.on('vitesse', (data) => {
         console.log(data)
         let marge = data * 2
 
         if (data >= marge && i === 0) {
             setNotification({ titre: "Alerte", subject: "surconsommation détectée" })
-            i = 1
         }
     })
 }
