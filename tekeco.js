@@ -55,16 +55,17 @@ io.on('connection', (socket) => {
 
 
         let data = JSON.parse(payload.toString())
-        if (!data.power) { console.log("pas de power") }
-        else {
+        // if (!data.power) { console.log("pas de power") }
+        // else {
 
-            console.log({ data: JSON.parse(payload.toString()) })
-            let somme = getPower()
-            let value = parseInt(data.power)
+        //     console.log({ data: JSON.parse(payload.toString()) })
+        //     let somme = getPower()
+        //     let value = parseInt(data.power)
 
-            somme = getPower() + parseInt(value)
-            setPower(somme)
-        }
+        //     somme = getPower() + parseInt(value)
+        //     setPower(somme)
+        // }
+        console.log(data)
         socket.emit('state_led', JSON.parse(payload.toString()))
 
     })
@@ -112,7 +113,7 @@ app.listen(3000, () => {
 //         const finished = await saveValue({ id: getId(), power: getPower() })
 //         console.log(finished)
 //     }
-//     // 
+//     //
 // })
 
 // cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
