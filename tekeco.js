@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
             device.emit("state_led", "accepted", JSON.stringify(payload))
         });
 
-
+        
 
     });
 
@@ -98,7 +98,6 @@ io.on('connection', (socket) => {
     })
 
     device.on('state_led', (topic, payload) => {
-
 
         let data = JSON.parse(payload.toString())
         socket.emit('state_led', JSON.parse(payload.toString()))

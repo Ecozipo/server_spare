@@ -12,17 +12,7 @@ const prisma = new PrismaClient();
 // let redisClient = createClient();
 
 export const publishCommand = async (req, res) => {
-  const state = req.body;
-  // device.publish('esp32/led', JSON.stringify(message), (err) => {
-  //     if (err) {
-  //         console.error('Error publishing message:', err);
-  //         res.status(500).send('Error publishing message');
-  //     } else {
-  //         console.log('Message published successfully', JSON.stringify(message));
-  //         res.status(200).json(message);
-  //     }
-  // });
-
+  const state = req.body
   device.publish(
     "$aws/things/Spare/shadow/update",
     JSON.stringify(state),
@@ -36,22 +26,14 @@ export const publishCommand = async (req, res) => {
       }
     }
   );
+  socket.on("state_led", (data) => {
+    res.status(200).json(data);
+  });
 };
 
 export const subscribeData = async (req, res) => {
 
   try {
-    // const token = req.headers.authorization.split(" ")[1];
-
-    // const { id } = jwt.decode(token).utilisateur;
-
-    // const utilisateur = await prisma.utilisateur.findUnique({
-    //   where: { id: parseInt(id) },
-    // });
-
-    // if (!utilisateur) {
-    //   res.status(500).send({ errorMessage: "Utilisateur introuvable" });
-    // }
     setId(parseInt(2));
 
     console.log(getPower());
@@ -64,7 +46,7 @@ export const subscribeData = async (req, res) => {
     socket.on("vitesse", (data) => {
       console.log(data)
     });
-    
+
     res.status(200).json({ message: { data_sent: true } });
   } catch (error) {
     console.log(error)

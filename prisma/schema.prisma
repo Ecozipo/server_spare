@@ -61,6 +61,8 @@ model Professionnel {
   telephone String
   quartier  Int
   type_pro  Int
+  image     String
+  url       String
 
   Quartier          Quartier          @relation(fields: [quartier], references: [id])
   TypeProfessionnel TypeProfessionnel @relation(fields: [type_pro], references: [id])
@@ -73,6 +75,7 @@ model Fournisseur {
   quartier  Int
   image     String
   url       String
+  description String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
