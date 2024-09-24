@@ -1,28 +1,29 @@
 import { PrismaClient } from "@prisma/client";
-import device from "../utils/awsDevice.js";
+import { io } from "socket.io-client";
 
 const prisma = new PrismaClient()
+const socket = io("ws://localhost:5000");
 
-const setNotification = async (notification) => {
+const setNotification = (notification) => {
 
-    const { titre, subject } = notification
+    const {titre,subject} = notification
 
-    try {
-        const newNotification = await prisma.notifications.create({
+    try{
+        const newNotification = prisma.notifications.create({
             data: {
                 titre,
                 subject
             }
         })
-        
-        // Emettre la notification
-        device.emit('notification', 'sent', notification)
 
-    } catch (error) {
+        // Emettre la notification
+        socket.emit('notification',JSON.stringify(notification))
+
+    }catch(error){
         console.log(error)
     }
 
-
+    
 }
 
 export default setNotification
