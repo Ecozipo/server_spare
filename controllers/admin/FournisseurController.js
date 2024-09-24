@@ -72,7 +72,7 @@ export const modifFournisseur = async (req, res) => {
 }
 
 export const createFournisseur = async (req, res) => {
-    const token = req.headers.authorization.split(" ")[1];
+    // const token = req.headers.authorization.split(" ")[1];
     const { nom, telephone, quartier } = req.body;
 
     const image = req.file;
@@ -81,10 +81,10 @@ export const createFournisseur = async (req, res) => {
     }
 
     try {
-        const admin = (await jwt.decode(token)).admin;
-        if (!admin) {
-            return res.status(401).send({ errorMessage: "Token invalide" });
-        }
+        // const admin = (await jwt.decode(token)).admin;
+        // if (!admin) {
+        //     return res.status(401).send({ errorMessage: "Token invalide" });
+        // }
 
         const fileSize = image.size; 
         const ext = path.extname(image.originalname);

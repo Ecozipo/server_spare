@@ -15,14 +15,14 @@ export const analyses = async () => {
     })
 
     if (temps[0] === 0 && temps[1] === 40 && temps[2] === 0) {
-        prisma.consomation.findMany({
+        const donnees = await prisma.consomation.findMany({
             orderBy: {
                 id: 'desc'
             },
             take: 2
-        }).then((response) => {
-            console.log(response)
         })
+
+        console.log(donnees)
     }
 
 }
