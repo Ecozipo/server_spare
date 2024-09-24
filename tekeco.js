@@ -17,6 +17,7 @@ import FournisseurRoute from './routes/FournisseurRoute.js'
 import NotificationRoute from './routes/NotificationRoute.js'
 import AdminProRoute from './routes/admin/AdminProRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
+import DownloadRoute from './routes/download/DownloadRoute.js'
 import { redisClient } from "./utils/redis.js"
 
 const app = express();
@@ -52,6 +53,11 @@ io.on('connection', (socket) => {
             device.emit("state_led", "accepted", JSON.stringify(payload))
         });
 
+        device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
+            if (err) console.log(err)
+            console.log(payload)
+            // device.emit("state_led", "accepted", JSON.stringify(payload))
+        });
 
 
     });
@@ -130,6 +136,7 @@ app.use('/admin/pro', AdminProRoute)
 app.use("/pro", ProfessionalRoute);
 app.use('/device', deviceRoute);
 app.use('/notification', NotificationRoute)
+app.use('/download', DownloadRoute)
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

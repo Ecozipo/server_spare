@@ -22,7 +22,7 @@ export const publishCommand = async (req, res) => {
         res.status(500).send("Error publishing message");
       } else {
         console.log("Message published successfully");
-        device.sub
+        
       }
     }
   );
