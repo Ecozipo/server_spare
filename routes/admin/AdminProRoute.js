@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { addProfessionnal } from "../../controllers/admin/ProController.js"
+import { addProfessionnal } from "../../controllers/admin/AdminProController.js"
 
 const router = Router()
 
