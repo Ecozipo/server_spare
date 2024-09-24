@@ -22,13 +22,15 @@ export const publishCommand = async (req, res) => {
         res.status(500).send("Error publishing message");
       } else {
         console.log("Message published successfully");
-        res.sendStatus(200);
+        // res.sendStatus(200);
+
+        socket.on("state_led", (data) => {
+          res.status(200).json(data);
+        });
       }
     }
   );
-  socket.on("state_led", (data) => {
-    res.status(200).json(data);
-  });
+
 };
 
 export const subscribeData = async (req, res) => {
