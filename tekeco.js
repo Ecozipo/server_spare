@@ -100,6 +100,7 @@ io.on('connection', (socket) => {
     device.on('state_led', (topic, payload) => {
 
         let data = JSON.parse(payload.toString())
+        console.log(data)
         socket.emit('state_led', JSON.parse(payload.toString()))
 
     })
