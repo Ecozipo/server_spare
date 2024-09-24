@@ -1,0 +1,13 @@
+INSERT INTO quartier(quartier) VALUES
+("analamahitsy"),
+("ampasika"),
+("andoharanofotsy"),
+("ampitatafika"),
+("androhibe"),
+("alasora"),
+("andohalo")
+;
+
+INSERT INTO typemodule(type,image,url) VALUES
+(
+
