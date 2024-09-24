@@ -48,11 +48,11 @@ io.on('connection', (socket) => {
 
         device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
             if (err) console.log(err)
-            // console.log(payload)
+            console.log(payload)
             device.emit("state_led", "accepted", JSON.stringify(payload))
         });
 
-        
+
 
     });
 
