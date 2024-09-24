@@ -15,6 +15,7 @@ import AdminAuthroute from './routes/admin/AdminAuthroute.js'
 import AdminFournisseurRoute from './routes/admin/AdminFournisseurRoute.js'
 import FournisseurRoute from './routes/FournisseurRoute.js'
 import NotificationRoute from './routes/NotificationRoute.js'
+import AdminProRoute from './routes/admin/AdminProRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import { redisClient } from "./utils/redis.js"
 
@@ -62,7 +63,7 @@ io.on('connection', (socket) => {
         socket.emit('vitesse', data.power)
     })
 
-    let notificationSent = false; 
+    let notificationSent = false;
 
     device.on('vitesse', (topic, payload) => {
 
@@ -78,7 +79,7 @@ io.on('connection', (socket) => {
             });
 
             notificationSent = true
-        } 
+        }
 
         if (data < marge) {
             notificationSent = false
@@ -126,6 +127,7 @@ app.use("/iot", iotRoute);
 app.use('/admin/auth', AdminAuthroute);
 app.use('/admin/shops', AdminFournisseurRoute);
 app.use('/shops', FournisseurRoute)
+app.use('/admin/pro', AdminProRoute)
 app.use("/pro", ProfessionalRoute);
 app.use('/device', deviceRoute);
 app.use('/notification', NotificationRoute)
