@@ -6,9 +6,9 @@ const prisma = new PrismaClient()
 export const getAllProfessionnel = async (req, res) => {
     try {
 
-        const utilisareurs = prisma.professionnel.findMany()
+        const utilisateurs = prisma.professionnel.findMany()
 
-        res.status(200).send(utilisareurs)
+        res.status(200).send(utilisateurs)
 
     } catch (error) {
         console.log(error);

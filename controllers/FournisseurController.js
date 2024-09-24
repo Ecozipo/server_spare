@@ -7,7 +7,7 @@ export const getAllFournisseurs = async (req, res) => {
     try {
         const allFournisseurs = await prisma.fournisseur.findMany()
 
-        res.status(200).send({ allFournisseurs })
+        res.status(200).send(allFournisseurs)
 
     } catch (error) {
         res.status(500).send({ errorMessage: "Internal server error" })
