@@ -49,9 +49,16 @@ io.on('connection', (socket) => {
 
         device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
             if (err) console.log(err)
-            console.log({ result: payload })
+            console.log(payload)
             device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
         }); 
+
+        // Voir etat de connexion du client
+        device.subscribe('$aws/events/presence/connected', (err, payload) => {
+            if (err) console.log(err)
+            console.log(payload)
+            device.emit('state_led', '$aws/things/Spare/shadow/get/connected', payload)
+        });
 
     });
 
@@ -64,7 +71,7 @@ io.on('connection', (socket) => {
 
     device.on('state_led', (topic, payload) => {
         let data = payload
-        console.log(data)
+        socket.emit('state_led', data)
     })
 
     let notificationSent = false;
