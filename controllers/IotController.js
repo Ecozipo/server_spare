@@ -9,10 +9,19 @@ import { log } from "console";
 const socket = io("ws://localhost:5000");
 const prisma = new PrismaClient();
 
+
+const fetchState = async () => {
+
+  device.on('state_led', (data) => {
+    return data
+  })
+
+}
+
 export const publishCommand = async (req, res) => {
   const state = req.body
   let response = []
-  let fetched = false
+
   await device.publish(
     "$aws/things/Spare/shadow/update",
     JSON.stringify(state),
@@ -26,17 +35,7 @@ export const publishCommand = async (req, res) => {
     }
   );
 
-  await device.on('state_led', (data) => {
-    response.push(data)
-    console.log(data)
-    fetched = true
-
-    return
-  })
-
-  if (fetched) {
-    res.status(200).json(response)
-  }
+  response = await fetchState()
 
 };
 
