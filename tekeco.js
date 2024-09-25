@@ -47,12 +47,6 @@ io.on('connection', (socket) => {
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
 
-        device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
-            if (err) console.log(err)
-            console.log(payload)
-            device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
-        });
-
     });
 
 

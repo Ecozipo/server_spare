@@ -25,10 +25,11 @@ export const publishCommand = async (req, res) => {
     }
   );
 
-  socket.on('state_led', (data) => {
-    console.log(data)
-    response = data
-  })
+  device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
+    if (err) console.log(err)
+    console.log(payload)
+    device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
+  });
 
   res.status(200).json(response)
 };
