@@ -105,8 +105,7 @@ io.on('connection', (socket) => {
         if (topic === '$aws/things/Spare/shadow/get/accepted') {
             let data = (JSON.parse(payload.toString()))
             const { state } = data
-            console.log(state)
-            socket.emit('state_led', state)
+            socket.emit('state_led', {state})
         }
     })
 
@@ -124,11 +123,6 @@ io.on('connection', (socket) => {
 
     device.on('notification', (topic, payload) => {
         socket.emit('notification', JSON.stringify(payload))
-    })
-
-    device.on('state_led', (topic, payload) => {
-        console.log(payload.toString(), topic)
-        socket.emit('state_led', payload.toString())
     })
 
     socket.on('disconnect', () => {
