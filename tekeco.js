@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
 
         device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
             if (err) console.log(err)
-            console.log(payload)
+            console.log({ one: payload })
             device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
         });
 
@@ -103,9 +103,10 @@ io.on('connection', (socket) => {
 
     device.on('message', (topic, payload) => {
         if (topic === '$aws/things/Spare/shadow/get/accepted') {
-            let state = (JSON.parse(payload.toString()))
+            let data = (JSON.parse(payload.toString()))
+            const { state } = data
             console.log(state)
-            // socket.emit('state_led', payload)
+            socket.emit('state_led', state)
         }
     })
 
