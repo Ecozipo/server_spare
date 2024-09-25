@@ -119,6 +119,7 @@ io.on('connection', (socket) => {
     })
 
     device.on('state_led', (topic, payload) => {
+        console.log(payload)
         socket.emit('state_led', JSON.stringify(payload))
     })
 
