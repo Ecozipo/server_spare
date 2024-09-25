@@ -19,14 +19,14 @@ export const publishCommand = async (req, res) => {
         console.error("Error publishing message:", err);
         res.status(500).send("Error publishing message");
       } else {
-        console.log("Message published successfully"); 
+        console.log("Message published successfully");
       }
     }
   );
 
   device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
     if (err) console.log(err)
-    res.stat4s
+    res.status(200).send(payload.toString())
   });
 
 };
