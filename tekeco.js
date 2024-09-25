@@ -101,10 +101,11 @@ io.on('connection', (socket) => {
         }
     })
 
-    device.on('message', (topic, payload) => { 
-        if (topic === '$aws/things/Spare/shadow/get/accepted'){
-            let data = JSON.stringify(payload.toString())
-            console.log(data)
+    device.on('message', (topic, payload) => {
+        if (topic === '$aws/things/Spare/shadow/get/accepted') {
+            let state = payload.state
+            console.log(state)
+            // socket.emit('state_led', payload)
         }
     })
 
