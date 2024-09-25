@@ -46,10 +46,10 @@ io.on('connection', (socket) => {
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
 
-        device.publish('$aws/things/Spare/shadow/get', '', (err) => {
-            if (err) console.log(err)
-            console.log('/get published successfully')
-        })
+        // device.publish('$aws/things/Spare/shadow/get', '', (err) => {
+        //     if (err) console.log(err)
+        //     console.log('/get published successfully')
+        // })
 
         device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
             if (err) console.log(err)
@@ -105,7 +105,7 @@ io.on('connection', (socket) => {
         if (topic === '$aws/things/Spare/shadow/get/accepted') {
             let data = (JSON.parse(payload.toString()))
             const { state } = data
-            device.emit('state_led', {state})
+            device.emit('state_led', { state })
         }
     })
 
