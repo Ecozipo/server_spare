@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
     })
 
     device.on('state_led', (topic, payload) => {
-        let data = JSON.parse(payload.toString())
+        let data = payload
         console.log(data)
     })
 
