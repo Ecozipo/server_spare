@@ -40,12 +40,6 @@ io.on('connection', (socket) => {
         device.subscribe('esp32/pzem', (error, payload) => {
             if (error) console.log(error)
             console.log(payload.toString())
-            let data = JSON.stringify(payload)
-            console.log(data)
-            setPower({ power: data.power, energy: data.energy })
-            device.emit('vitesse', 'esp32/pzem', data.power)
-            device.emit('consommation', 'esp32/pzem', data.energy)
-            device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
 
         // device.publish('$aws/things/Spare/shadow/get', '', (err) => {
@@ -84,6 +78,13 @@ io.on('connection', (socket) => {
             console.log("client connecté")
         } else if (topic === '$aws/events/presence/disconnected') {
             console.log("client deconnecté")
+        } else if (topic === 'esp32/pzem') {
+            let data = JSON.stringify(payload)
+            console.log(payload)
+            setPower({ power: data.power, energy: data.energy })
+            device.emit('vitesse', 'esp32/pzem', data.power)
+            device.emit('consommation', 'esp32/pzem', data.energy)
+            device.emit('message', "esp32/pzem", JSON.stringify(payload))
         }
     })
     device.on('state_led', (topic, payload) => {
