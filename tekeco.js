@@ -80,7 +80,7 @@ io.on('connection', (socket) => {
             console.log("client deconnecté")
         } else if (topic === 'esp32/pzem') {
             let data = JSON.stringify(payload)
-            console.log(payload)
+            console.log(data)
             setPower({ power: data.power, energy: data.energy })
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
