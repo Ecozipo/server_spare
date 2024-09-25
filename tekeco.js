@@ -101,13 +101,7 @@ io.on('connection', (socket) => {
         }
     })
 
-    device.on('message', (topic, payload) => {
-        if (topic === '$aws/things/Spare/shadow/get/accepted') {
-            let data = (JSON.parse(payload.toString()))
-            const { state } = data
-            device.emit('state_led', { state })
-        }
-    })
+    
 
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)

@@ -35,9 +35,13 @@ export const publishCommand = async (req, res) => {
     }
   );
 
-  response = await fetchState()
-  
-  res.status(200).json(response);
+  device.on('message', (topic, payload) => {
+    if (topic === '$aws/things/Spare/shadow/get/accepted') {
+      let data = (JSON.parse(payload.toString()))
+      const { state } = data
+      res.status(200).json({ state })
+    }
+  })
 };
 
 
