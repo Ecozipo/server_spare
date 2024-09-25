@@ -27,10 +27,8 @@ export const publishCommand = async (req, res) => {
 
   socket.on('state_led', (data) => {
     response = data
-    console.log({ message: 'socket aquired', data })
+    res.status(200).json(response)
   })
-
-  res.status(200).json(response)
 };
 
 export const subscribeData = async (req, res) => {
