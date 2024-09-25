@@ -36,7 +36,8 @@ export const publishCommand = async (req, res) => {
   );
 
   response = await fetchState()
-
+  
+  res.status(200).json(response);
 };
 
 
