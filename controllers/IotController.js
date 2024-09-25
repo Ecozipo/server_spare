@@ -27,7 +27,7 @@ export const publishCommand = async (req, res) => {
 
   device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
     if (err) console.log(err)
-    console.log(payload)
+    console.log({ result: payload })
     device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
   });
 
