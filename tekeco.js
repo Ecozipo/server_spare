@@ -105,7 +105,7 @@ io.on('connection', (socket) => {
         if (topic === '$aws/things/Spare/shadow/get/accepted') {
             let data = (JSON.parse(payload.toString()))
             const { state } = data
-            socket.emit('state_led', {state})
+            device.emit('state_led', {state})
         }
     })
 
