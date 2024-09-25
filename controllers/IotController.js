@@ -11,6 +11,7 @@ const prisma = new PrismaClient();
 
 export const publishCommand = async (req, res) => {
   const state = req.body
+  let response = {}
   device.publish(
     "$aws/things/Spare/shadow/update",
     JSON.stringify(state),
@@ -24,11 +25,12 @@ export const publishCommand = async (req, res) => {
     }
   );
 
-  device.on('state_led', (topic, payload) => {
-    console.log(payload)
-    res.status(200).json(payload)
+  socket.on('state_led', (data) => {
+    console.log(data)
+    response = data
   })
 
+  res.status(200).json(response)
 };
 
 export const subscribeData = async (req, res) => {

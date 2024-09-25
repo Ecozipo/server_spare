@@ -101,6 +101,11 @@ io.on('connection', (socket) => {
         socket.emit('notification', JSON.stringify(payload))
     })
 
+    device.on('state_led', (topic, payload) => {
+        console.log(payload)
+        socket.emit('state_led', JSON.stringify(payload))
+    })
+
     socket.on('disconnect', () => {
         console.log('Client disconnected:', socket.id);
     });
