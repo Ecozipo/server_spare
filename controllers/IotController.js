@@ -30,6 +30,8 @@ export const publishCommand = async (req, res) => {
     response.push(data)
     console.log(data)
     fetched = true
+
+    return
   })
 
   if (fetched) {
