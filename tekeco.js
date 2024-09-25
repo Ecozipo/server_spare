@@ -47,19 +47,6 @@ io.on('connection', (socket) => {
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
 
-        device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
-            if (err) console.log(err)
-            console.log(payload)
-            device.emit("state_led", "accepted", JSON.stringify(payload))
-        });
-
-        device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
-            if (err) console.log(err)
-            console.log(payload)
-            // device.emit("state_led", "accepted", JSON.stringify(payload))
-        });
-
-
     });
 
 
@@ -142,26 +129,6 @@ app.listen(3000, () => {
     console.log("Server is running on port 3000");
     console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 });
-
-
-//-----------Save value in database by cron-node------
-
-// cron.schedule('* * * * *', async () => {
-//     console.log("Cron job running at:")
-//     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
-//     console.log(now.toString())
-//     const temps = now.split(":")
-
-//     temps.forEach((element, index) => {
-//         temps[index] = parseInt(element)
-//     })
-
-//     if (temps[0] === 2 && temps[1] === 49 && temps[2] === 0) {
-//         const finished = await saveValue({ id: getId(), power: getPower() })
-//         console.log(finished)
-//     }
-//     //
-// })
 
 cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
 cron.schedule('* * * * *', () => { analyses() })
