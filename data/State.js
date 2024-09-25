@@ -34,7 +34,6 @@ export const setData = (id, power) => {
 export const saveValue = async (value) => {
     const { power } = value
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
-    console.log(now.toString())
     const temps = now.split(":")
 
     temps.forEach((element, index) => {
