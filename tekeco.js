@@ -119,7 +119,7 @@ io.on('connection', (socket) => {
     })
 
     device.on('state_led', (topic, payload) => {
-        console.log(payload.toString())
+        console.log(payload.toString(), topic)
         socket.emit('state_led', payload.toString())
     })
 
