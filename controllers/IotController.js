@@ -26,7 +26,8 @@ export const publishCommand = async (req, res) => {
 
   device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
     if (err) console.log(err)
-    res.status(200).send(payload.toString())
+    console.log(payload)
+    res.status(200).send(payload)
   });
 
 };
