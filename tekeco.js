@@ -3,7 +3,6 @@ import cors from "cors"
 import io from "./utils/socketio.js"
 import path, { dirname } from "path"
 import cron from "node-cron"
-import moment from "moment-timezone"
 import { saveValue, getId, getPower, setPower } from "./data/State.js"
 import { analyses } from "./tasks/Analyses.js"
 import device from './utils/awsDevice.js'
@@ -99,6 +98,13 @@ io.on('connection', (socket) => {
 
         if (data < marge) {
             notificationSent = false
+        }
+    })
+
+    device.on('message', (topic, payload) => { 
+        if (topic === '$aws/things/Spare/shadow/get/accepted'){
+            let data = JSON.stringify(payload.toString())
+            console.log(data)
         }
     })
 
