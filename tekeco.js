@@ -47,6 +47,12 @@ io.on('connection', (socket) => {
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
 
+        device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
+            if (err) console.log(err)
+            console.log(payload)
+            device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
+        });
+
     });
 
 
@@ -90,12 +96,6 @@ io.on('connection', (socket) => {
         socket.emit('realtime', payload.toString())
     })
 
-    device.on('state_led', (topic, payload) => {
-
-        let data = JSON.parse(payload.toString())
-        socket.emit('state_led', JSON.parse(payload.toString()))
-
-    })
 
     device.on('notification', (topic, payload) => {
         socket.emit('notification', JSON.stringify(payload))
