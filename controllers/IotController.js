@@ -31,8 +31,7 @@ export const publishCommand = async (req, res) => {
   });
 
   device.on('state_led', (topic, payload) => {
-    let data = JSON.parse(payload.toString())
-    res.status(200).json(data)
+    res.status(200).json(payload)
   })
 
 };
