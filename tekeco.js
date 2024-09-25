@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
         })
 
-        device.publish('$aws/things/Spare/shadow/get', (err) => {
+        device.publish('$aws/things/Spare/shadow/get', {}, (err) => {
             if (err) console.log(err)
             console.log('/get published successfully')
         })
