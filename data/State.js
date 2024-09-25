@@ -40,7 +40,7 @@ export const saveValue = async (value) => {
         temps[index] = parseInt(element)
     })
 
-    if (temps[0] === 16 && temps[1] === 55 && temps[2] === 0) {
+    if (temps[0] === 17 && temps[1] === 0 && temps[2] === 0) {
         try {
             const creation = await prisma.consomation.create({
                 data: {
