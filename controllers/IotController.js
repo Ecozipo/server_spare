@@ -71,6 +71,9 @@ export const subscribeStateLed = async (req, res) => {
   let somme = 0;
 
   socket.on("state_led", (data) => {
+    console.log('ecoute pox')
     res.status(200).json({ state_led: data });
   });
+
+  console.log('tsy n ecoute pox')
 };
