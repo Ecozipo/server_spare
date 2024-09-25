@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 let data = {
     id: 2,
-    POWER: 0
+    POWER: '0'
 }
 
 export const getPower = () => {
@@ -22,12 +22,12 @@ export const setId = (id) => {
 }
 
 export const setPower = (power) => {
-    data.POWER = parseInt(power)
+    data.POWER = JSON.stringify(power)
 }
 
 export const setData = (id, power) => {
     data.id = id;
-    data.POWER = parseInt(power);
+    data.POWER = JSON.stringify(power)
     return data;
 }
 
@@ -40,11 +40,11 @@ export const saveValue = async (value) => {
         temps[index] = parseInt(element)
     })
 
-    if (temps[0] === 22 && temps[1] === 0 && temps[2] === 0) {
+    if (temps[0] === 16 && temps[1] === 55 && temps[2] === 0) {
         try {
             const creation = await prisma.consomation.create({
                 data: {
-                    valeur: power.toString(),
+                    valeur: power,
                     date_consommation: new Date()
                 }
             })
