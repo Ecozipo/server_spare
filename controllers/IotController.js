@@ -26,7 +26,7 @@ export const publishCommand = async (req, res) => {
   );
 
   device.on('state_led', (data) => {
-    res.status(200).json(response);
+    res.status(200).json(data);
   })
 
 };
