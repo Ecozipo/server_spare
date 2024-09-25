@@ -18,6 +18,7 @@ import AdminProRoute from './routes/admin/AdminProRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
 import { redisClient } from "./utils/redis.js"
+import { log } from "console"
 
 const app = express();
 app.use(express.json());
@@ -61,7 +62,11 @@ io.on('connection', (socket) => {
         device.subscribe('$aws/events/presence/connected', (err, payload) => {
             if (err) console.log(err)
             console.log(payload)
-            device.emit('state_led', '$aws/things/Spare/shadow/get/connected', payload)
+        });
+
+        device.subscribe('$aws/events/presence/disconnected', (err, payload) => {
+            if (err) console.log(err)
+            console.log(payload)
         });
 
     });
@@ -73,6 +78,13 @@ io.on('connection', (socket) => {
         socket.emit('vitesse', data.power)
     })
 
+    device.on('message', (topic, payload) => {
+        if (topic === '$aws/events/presence/connected') {
+            console.log("client connecté")
+        } else if (topic === '$aws/events/presence/disconnected') {
+            console.log("client deconnecté")
+        }
+    })
     device.on('state_led', (topic, payload) => {
         let data = payload
         socket.emit('state_led', data)
@@ -101,7 +113,7 @@ io.on('connection', (socket) => {
         }
     })
 
-    
+
 
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
