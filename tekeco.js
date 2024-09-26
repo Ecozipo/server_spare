@@ -68,11 +68,11 @@ io.on('connection', (socket) => {
     });
 
 
-    device.on('message', (topic, payload) => {
-        let data = JSON.parse(payload.toString())
-        socket.emit('consommation', data.energy)
-        socket.emit('vitesse', data.power)
-    })
+    // device.on('message', (topic, payload) => {
+    //     let data = JSON.parse(payload.toString())
+    //     socket.emit('consommation', data.energy)
+    //     socket.emit('vitesse', data.power)
+    // })
 
     device.on('message', (topic, payload) => {
 
@@ -90,7 +90,7 @@ io.on('connection', (socket) => {
             setPower({ power: data.power, energy: data.energy })
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
-            device.emit('message', "esp32/pzem", JSON.stringify(payload))
+            // device.emit('message', "esp32/pzem", JSON.stringify(payload))
         } 
 
         if (topic === '$aws/things/Spare/shadow/get/accepted') {
