@@ -6,7 +6,7 @@ import { get_relay_state } from "../data/Relais.js";
 
 
 const socket = io("ws://localhost:5000");
-const prisma = new PrismaClient();
+
 
 
 const fetchState = async () => {
