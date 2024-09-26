@@ -100,6 +100,7 @@ io.on('connection', (socket) => {
             console.log("on est là")
             let data = (JSON.parse(payload.toString()))
             const { state } = data
+            console.log(state)
             set_relay_state(state)
         }
 
