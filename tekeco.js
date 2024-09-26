@@ -184,6 +184,12 @@ app.use('/device', deviceRoute);
 app.use('/notification', NotificationRoute)
 app.use('/download', DownloadRoute)
 
+app.get('/',(req,res)=>{
+    socket.on('realtime',(data)=>{
+        console.log(data)
+    })
+})
+
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
     console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
