@@ -17,7 +17,7 @@ import AdminProRoute from './routes/admin/AdminProRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
 import { redisClient } from "./utils/redis.js"
-import { set_relay_delta, set_relay_state } from "./data/Relais.js"
+import { get_relay_state, set_relay_delta, set_relay_state } from "./data/Relais.js"
 import device from "./utils/awsDevice.js"
 
 const app = express();
@@ -183,6 +183,9 @@ app.use("/pro", ProfessionalRoute);
 app.use('/device', deviceRoute);
 app.use('/notification', NotificationRoute)
 app.use('/download', DownloadRoute)
+app.get('/state',(req,res)=>{
+    res.status(200).json(get_relay_state())
+})
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
