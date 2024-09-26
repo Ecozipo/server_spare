@@ -34,6 +34,7 @@ io.on('connection', (socket) => {
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
         setInterval(() => {
+            console.log("send...")
             device.emit('realtime', 'accepted', Math.floor(Math.random() * 100))
         }, 1000)
 
