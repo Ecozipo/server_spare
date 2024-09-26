@@ -184,7 +184,8 @@ app.use('/device', deviceRoute);
 app.use('/notification', NotificationRoute)
 app.use('/download', DownloadRoute)
 app.get('/state',(req,res)=>{
-    res.status(200).json(get_relay_state())
+    const {reported} = get_relay_state()
+    res.status(200).json(reported)
 })
 
 app.listen(3000, () => {
