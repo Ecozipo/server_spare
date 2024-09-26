@@ -138,7 +138,10 @@ io.on('connection', (socket) => {
         }
     })
 
-
+    device.on('realtime',(topic,payload)=>{
+        console.log(payload)
+        socket.emit('realtime',payload)
+    })
 
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
