@@ -86,7 +86,7 @@ io.on('connection', (socket) => {
         } 
 
         if (topic === 'esp32/pzem') {
-            let data = JSON.stringify(payload)
+            let data = JSON.stringify(payload.toString())
             console.log(data)
             setPower({ power: data.power, energy: data.energy })
             device.emit('vitesse', 'esp32/pzem', data.power)
@@ -183,15 +183,6 @@ app.use("/pro", ProfessionalRoute);
 app.use('/device', deviceRoute);
 app.use('/notification', NotificationRoute)
 app.use('/download', DownloadRoute)
-
-app.get('/',(req,res)=>{
-    io.on('connection',(socket)=>{
-        socket.on('realtime',(data)=>{
-            console.log(data)
-        })
-
-    })
-})
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
