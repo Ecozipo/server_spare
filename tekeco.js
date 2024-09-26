@@ -185,8 +185,11 @@ app.use('/notification', NotificationRoute)
 app.use('/download', DownloadRoute)
 
 app.get('/',(req,res)=>{
-    socket.on('realtime',(data)=>{
-        console.log(data)
+    io.on('connection',(socket)=>{
+        socket.on('realtime',(data)=>{
+            console.log(data)
+        })
+
     })
 })
 
