@@ -1,6 +1,6 @@
 
 import awsIot from 'aws-iot-device-sdk';
-import io from './socketio';
+import io from './socketio.js';
 
 let device = {}
 
