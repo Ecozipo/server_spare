@@ -148,7 +148,7 @@ io.on('connection', (socket) => {
         let data = parseFloat(payload)
         let somme = getPower() + data
         setPower(somme)
-        socket.emit('consommation', somme)
+        socket.emit('consommation', data)
     })
 
     device.on('realtime', (topic, payload) => {
