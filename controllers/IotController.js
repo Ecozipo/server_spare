@@ -4,6 +4,7 @@ import { getPower, setPower, setId } from "../data/State.js";
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { log } from "console";
+import { get_relay_state } from "../data/Relais.js";
 
 
 const socket = io("ws://localhost:5000");
@@ -35,13 +36,16 @@ export const publishCommand = async (req, res) => {
     }
   );
 
-  device.on('message', (topic, payload) => {
-    if (topic === '$aws/things/Spare/shadow/get/accepted') {
-      let data = (JSON.parse(payload.toString()))
-      const { state } = data
-      res.status(200).json({ state })
-    }
-  })
+  // device.on('message', (topic, payload) => {
+  //   if (topic === '$aws/things/Spare/shadow/get/accepted') {
+  //     console.log("on est là")
+  //     let data = (JSON.parse(payload.toString()))
+  //     const { state } = data
+  //     res.status(200).json({ state })
+  //   }
+  // })
+
+  res.status(200).json(get_relay_state())
 };
 
 

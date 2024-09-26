@@ -5,7 +5,6 @@ import path, { dirname } from "path"
 import cron from "node-cron"
 import { saveValue, getId, getPower, setPower } from "./data/State.js"
 import { analyses } from "./tasks/Analyses.js"
-import device from './utils/awsDevice.js'
 import UserRoute from "./routes/admin/UserRoute.js"
 import AuthRoute from "./routes/AuthRoute.js"
 import iotRoute from "./routes/iotRoute.js"
@@ -18,7 +17,8 @@ import AdminProRoute from './routes/admin/AdminProRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
 import { redisClient } from "./utils/redis.js"
-import { log } from "console"
+import { set_relay_delta, set_relay_state } from "./data/Relais.js"
+import awsIot from 'aws-iot-device-sdk';
 
 const app = express();
 app.use(express.json());
@@ -29,6 +29,15 @@ app.use(cors());
 // Socket.IO connection
 io.on('connection', (socket) => {
     console.log('New client connected:', socket.id);
+
+
+    const device = awsIot.device({
+    keyPath: "config/credentials/81e5e6a3a666ef15c189137f854e262068c25f1af24258a82c73a56e15ce7800-private.pem.key",
+    certPath: 'config/credentials/81e5e6a3a666ef15c189137f854e262068c25f1af24258a82c73a56e15ce7800-certificate.pem.crt',
+    caPath: 'config/credentials/AmazonRootCA1.pem',
+    clientId: socket.id,
+    host: 'a27g25yfuax5ui-ats.iot.us-east-1.amazonaws.com'
+    });
 
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
@@ -53,6 +62,9 @@ io.on('connection', (socket) => {
             device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
         });
 
+        device.subscribe('$aws/things/Spare/update/delta',(err,payload)=>{
+            if(!err) console.log("delta connected")
+        })
         // Voir etat de connexion du client
         device.subscribe('$aws/events/presence/connected', (err, payload) => {
             if (err) console.log(err)
@@ -74,18 +86,36 @@ io.on('connection', (socket) => {
     })
 
     device.on('message', (topic, payload) => {
+
         if (topic === '$aws/events/presence/connected') {
             console.log("client connecté")
-        } else if (topic === '$aws/events/presence/disconnected') {
+        } 
+
+        if (topic === '$aws/events/presence/disconnected') {
             console.log("client deconnecté")
-        } else if (topic === 'esp32/pzem') {
+        } 
+
+        if (topic === 'esp32/pzem') {
             let data = JSON.stringify(payload)
             console.log(data)
             setPower({ power: data.power, energy: data.energy })
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
             device.emit('message', "esp32/pzem", JSON.stringify(payload))
+        } 
+
+        if (topic === '$aws/things/Spare/shadow/get/accepted') {
+            console.log("on est là")
+            let data = (JSON.parse(payload.toString()))
+            const { state } = data
+            set_relay_state(state)
         }
+
+        if(topic==='$aws/things/Spare/update/delta'){
+            console.log("delta acquired", payload)
+            set_relay_delta(payload)
+        }
+
     })
     device.on('state_led', (topic, payload) => {
         let data = payload
