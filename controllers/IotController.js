@@ -2,8 +2,6 @@ import device from "../utils/awsDevice.js";
 import { io } from "socket.io-client";
 import { getPower, setPower, setId } from "../data/State.js";
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
-import { log } from "console";
 import { get_relay_state } from "../data/Relais.js";
 
 
