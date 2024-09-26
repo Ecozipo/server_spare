@@ -126,10 +126,10 @@ io.on('connection', (socket) => {
         if (data >= marge && !notificationSent) {
 
             console.log("Alerte sur consommation");
-            setNotification({
-                titre: "Alerte sur consommation",
-                subject: "Votre consommation est très en hausse"
-            });
+            // setNotification({
+            //     titre: "Alerte sur consommation",
+            //     subject: "Votre consommation est très en hausse"
+            // });
 
             notificationSent = true
         }
@@ -159,7 +159,7 @@ io.on('connection', (socket) => {
 
 
     device.on('notification', (topic, payload) => {
-        socket.emit('notification', JSON.stringify(payload))
+        socket.emit('notification', payload)
     })
 
     socket.on('disconnect', () => {
