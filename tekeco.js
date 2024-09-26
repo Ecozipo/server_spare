@@ -16,6 +16,7 @@ import NotificationRoute from './routes/NotificationRoute.js'
 import AdminProRoute from './routes/admin/AdminProRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
+import ConsommationRoute from './routes/ConsommationRoute.js'
 import { redisClient } from "./utils/redis.js"
 import { get_relay_state, set_relay_delta, set_relay_state } from "./data/Relais.js"
 import device from "./utils/awsDevice.js"
@@ -165,21 +166,22 @@ io.on('connection', (socket) => {
 // Serve static files from the 'assets' folder
 app.use('/assets', express.static(path.resolve(dirname('assets'), 'assets',)));
 
-app.use("/user", UserRoute);
-app.use("/auth", AuthRoute);
-app.use("/iot", iotRoute);
+app.use('/admin/pro', AdminProRoute)
 app.use('/admin/auth', AdminAuthroute);
 app.use('/admin/shops', AdminFournisseurRoute);
-app.use('/shops', FournisseurRoute)
-app.use('/admin/pro', AdminProRoute)
-app.use("/pro", ProfessionalRoute);
+app.use("/auth", AuthRoute);
+app.use('/stats',ConsommationRoute)
 app.use('/device', deviceRoute);
-app.use('/notification', NotificationRoute)
 app.use('/download', DownloadRoute)
+app.use("/iot", iotRoute);
+app.use('/notification', NotificationRoute)
+app.use("/pro", ProfessionalRoute);
+app.use('/shops', FournisseurRoute)
 app.get('/state',(req,res)=>{
     const {reported} = get_relay_state()
     res.status(200).json(reported)
 })
+app.use("/user", UserRoute);
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
