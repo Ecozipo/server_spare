@@ -137,6 +137,8 @@ io.on('connection', (socket) => {
         if (data < marge) {
             notificationSent = false
         }
+
+        socket.emit('vitesse',data)
     })
 
     device.on('realtime',(topic,payload)=>{
