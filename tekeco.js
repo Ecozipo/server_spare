@@ -43,15 +43,12 @@ io.on('connection', (socket) => {
             console.log(payload.toString())
         })
 
-        // device.publish('$aws/things/Spare/shadow/get', '', (err) => {
-        //     if (err) console.log(err)
-        //     console.log('/get published successfully')
-        // })
+        device.publish('$aws/things/Spare/shadow/get', '', (err) => {
+            if (!err)console.log('get published')
+        })
 
         device.subscribe('$aws/things/Spare/shadow/get/accepted', (err, payload) => {
-            if (err) console.log(err)
-            console.log({ one: payload })
-            device.emit('state_led', '$aws/things/Spare/shadow/get/accepted', payload)
+            if (!err) console.log("initial state acquired")
         });
 
         device.subscribe('$aws/things/Spare/update/delta',(err,payload)=>{
@@ -102,6 +99,9 @@ io.on('connection', (socket) => {
             const { state } = data
             console.log(state)
             set_relay_state(state)
+
+            const {reported} = state
+            socket.emit('state',reported)
         }
 
         if(topic==='$aws/things/Spare/update/delta'){
