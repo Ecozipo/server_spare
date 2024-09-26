@@ -139,7 +139,6 @@ io.on('connection', (socket) => {
     })
 
     device.on('realtime',(topic,payload)=>{
-        console.log(payload)
         socket.emit('realtime',payload)
     })
 
@@ -149,11 +148,6 @@ io.on('connection', (socket) => {
         setPower(somme)
         socket.emit('consommation', data)
     })
-
-    device.on('realtime', (topic, payload) => {
-        socket.emit('realtime', payload.toString())
-    })
-
 
     device.on('notification', (topic, payload) => {
         socket.emit('notification', payload)
