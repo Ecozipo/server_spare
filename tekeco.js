@@ -18,7 +18,7 @@ import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
 import { redisClient } from "./utils/redis.js"
 import { set_relay_delta, set_relay_state } from "./data/Relais.js"
-import awsIot from 'aws-iot-device-sdk';
+import device from "./utils/awsDevice.js"
 
 const app = express();
 app.use(express.json());
@@ -30,14 +30,6 @@ app.use(cors());
 io.on('connection', (socket) => {
     console.log('New client connected:', socket.id);
 
-
-    const device = awsIot.device({
-    keyPath: "config/credentials/81e5e6a3a666ef15c189137f854e262068c25f1af24258a82c73a56e15ce7800-private.pem.key",
-    certPath: 'config/credentials/81e5e6a3a666ef15c189137f854e262068c25f1af24258a82c73a56e15ce7800-certificate.pem.crt',
-    caPath: 'config/credentials/AmazonRootCA1.pem',
-    clientId: socket.id,
-    host: 'a27g25yfuax5ui-ats.iot.us-east-1.amazonaws.com'
-    });
 
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
