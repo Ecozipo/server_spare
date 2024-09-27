@@ -117,7 +117,8 @@ model Achat {
 // -----------------------------------------Consomation-------------------------------------
 model Consomation {
   id                Int      @id @default(autoincrement())
-  valeur            String
+  power            Float
+  energy           Float
   date_consommation DateTime @default(now())
 }
 

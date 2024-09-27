@@ -23,8 +23,16 @@ export const setId = (id) => {
 
 export const setPower = (valeur) => {
     const { power, energy } = valeur
-    console.log(valeur)
+    console.log(
+        "---------------------"+`{power:${power},energy:${energy}}`+"---------------------"
+    )
     data.POWER = `{power:${power},energy:${energy}}`
+
+    console.log("#############"+getPower()+"##################")
+}
+
+export const setEnergy = (energy) => {
+    data.POWER = `{energy:${energy}}`
 }
 
 export const setData = (id, power) => {
@@ -34,7 +42,7 @@ export const setData = (id, power) => {
 }
 
 export const saveValue = async (value) => {
-    
+    console.log(value)
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
     temps.forEach((element, index) => {

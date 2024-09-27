@@ -88,10 +88,9 @@ io.on('connection', (socket) => {
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
             const { power, energy } = data
-            console.log({power,energy})
             setPower({power,energy})
-            device.emit('vitesse', 'esp32/pzem', data.power)
-            device.emit('consommation', 'esp32/pzem', data.energy)
+            device.emit('vitesse', 'esp32/pzem', power)
+            device.emit('consommation', 'esp32/pzem', energy)
             // device.emit('message', "esp32/pzem", JSON.stringify(payload))
         } 
 
@@ -147,8 +146,6 @@ io.on('connection', (socket) => {
 
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
-        let somme = getPower() + data
-        setPower(somme)
         socket.emit('consommation', data)
     })
 
