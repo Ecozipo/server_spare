@@ -5,22 +5,28 @@ const prisma = new PrismaClient()
 
 export const getAllFournisseurs = async (req, res) => {
     try {
+
+        const data = []
         //select id,nom,telephone,Quartier.quartier as nom_quartier,url,image from Fournisseur
         
         const allFournisseurs = await prisma.fournisseur.findMany({
-            select: {
-                id: true,
-                nom: true,
-                telephone: true,
-                url: true,
-                image: true
-            },
-            include:{
-                Quartier:true
+            include: {
+                Quartier: true
             }
         })
 
-        res.status(200).send(allFournisseurs)
+        allFournisseurs.forEach(element => {
+            data.push({
+                id: element.id,
+                nom: element.nom,
+                telephone: element.telephone,
+                quartier: element.Quartier.quartier,
+                url: element.url,
+                image: element.image
+            })
+        })
+
+        res.status(200).send(data)
 
     } catch (error) {
         console.log(error)
