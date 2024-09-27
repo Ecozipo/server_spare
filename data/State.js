@@ -23,6 +23,7 @@ export const setId = (id) => {
 
 export const setPower = (valeur) => {
     const { power, energy } = valeur
+    console.log(valeur)
     data.POWER = `{power:${power},energy:${energy}}`
 }
 
