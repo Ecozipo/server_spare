@@ -10,13 +10,14 @@ export const getAllFournisseurs = async (req, res) => {
                 id: true,
                 nom: true,
                 telephone: true,
-                quartier:{
-                    select:{
-                        quartier: true
-                    }
-                },
+                image: true,
+                url: true,
                 description: true,
-                url: true
+                quartier: {
+                    select: {
+                        quartier: true
+                    },
+                },
             }
         })
 
