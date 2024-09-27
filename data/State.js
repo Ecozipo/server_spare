@@ -53,9 +53,13 @@ export const saveValue = async (value) => {
     }
 
     console.log(preview[0], value)
-    const p_data = format_data(preview[0].valeur)
+   
+    const jsonString = (preview[0].valeur).replace(/(\w+):/g, '"$1":');
 
-    console.log(format_data(JSON.stringify(value)))
+    // const p_data = (preview[0].valeur)
+    const p_data = JSON.parse(jsonString);
+
+    console.log(format_data(JSON.stringify(value)), format_data(JSON.stringify(preview[0].valeur)))
 
     const actual_value = format_data(JSON.stringify(value))
 
