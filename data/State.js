@@ -50,19 +50,17 @@ export const saveValue = async (value) => {
 
     console.log(preview)
 
-    if(preview.length===0){
-        preview.push({valeur:`{power:${0},energy:${0}}`,total:0})
-    }
+    preview.forEach(element => {
+        element.valeur = format_data(element.valeur)
+    })
 
-    const p_valeur = format_data(JSON.stringify(preview[0].valeur))
+    let p_valeur = preview[0].valeur
 
     console.log(preview[0], value)
 
     console.log(format_data(JSON.stringify(value)), format_data(JSON.stringify(preview[0].valeur)))
 
     const actual_value = format_data(JSON.stringify(value))
-
-    console.log(`{inserted_power:${p_valeur.power},inserted_energy:${actual_value.energy-preview[0].total}}`)
 
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
@@ -86,4 +84,5 @@ export const saveValue = async (value) => {
     }
     if (temps[0] === 0 && temps[1] === 0 && temps[2] === 0) {
     }
+
 }
