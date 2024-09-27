@@ -16,7 +16,9 @@ export const hebdomadaire = async (req, res) => {
         take: 7
     })
 
-    res.status(200).json(consommations)
+
+
+    res.status(200).json(consommations.valeur)
 }
 
 export const mensuel = (req, res) => {
