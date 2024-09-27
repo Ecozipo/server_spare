@@ -23,12 +23,7 @@ export const setId = (id) => {
 
 export const setPower = (valeur) => {
     const { power, energy } = valeur
-    console.log(
-        "---------------------"+`{power:${power},energy:${energy}}`+"---------------------"
-    )
     data.POWER = `{power:${power},energy:${energy}}`
-
-    console.log("#############"+getPower()+"##################")
 }
 
 export const setEnergy = (energy) => {
