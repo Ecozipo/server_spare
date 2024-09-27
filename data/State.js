@@ -52,18 +52,16 @@ export const saveValue = async (value) => {
         preview.push({valeur:`{power:${0},energy:${0}}`,total:0})
     }
 
-    console.log(preview[0], value)
-   
-    const jsonString = (preview[0].valeur).replace(/(\w+):/g, '"$1":');
+    preview.forEach(element => {
+        element.valeur = format_data(element.valeur)
+    })
 
-    // const p_data = (preview[0].valeur)
-    const p_data = JSON.parse(jsonString);
-
-    console.log(format_data(JSON.stringify(value)), format_data(JSON.stringify(preview[0].valeur)))
+    const p_data = preview[0]
+    const { power } = p_data.valeur
 
     const actual_value = format_data(JSON.stringify(value))
 
-    console.log(`{inserted_power:${p_data.power},inserted_energy:${actual_value.energy-p_data.total}}`)
+    console.log(`{inserted_power:${power},inserted_energy:${actual_value.energy-p_data.total}}`)
 
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
