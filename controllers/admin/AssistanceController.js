@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { io } from "socket.io-client";
+import device from "../../utils/awsDevice.js";
 
 const socket = io("ws://localhost:5000");
 
@@ -21,7 +22,8 @@ export const createAssistance = async (req, res) => {
             }
         })
 
-       socket.emit('notification',JSON.stringify({titre,subject:description}))
+        device.emit('notification','push/notif',JSON.stringify({titre,subject:description}))
+        socket.emit('notification',JSON.stringify({titre,subject:description}))
 
         res.status(200).json(assistance)
 
