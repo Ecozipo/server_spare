@@ -5,7 +5,20 @@ const prisma = new PrismaClient()
 
 export const getAllFournisseurs = async (req, res) => {
     try {
-        const allFournisseurs = await prisma.fournisseur.findMany()
+        const allFournisseurs = await prisma.fournisseur.findMany({
+            select: {
+                id: true,
+                nom: true,
+                telephone: true,
+                quartier:{
+                    select:{
+                        quartier: true
+                    }
+                },
+                description: true,
+                url: true
+            }
+        })
 
         res.status(200).send(allFournisseurs)
 
