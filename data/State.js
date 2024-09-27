@@ -47,7 +47,7 @@ export const saveValue = async (value) => {
         }
     )
     
-    console.log(JSON.parse(value))
+    console.log(value.toString(),JSON.parse(value.toString()))
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
 
