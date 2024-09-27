@@ -17,7 +17,7 @@ export const getAllProfessionnel = async (req, res) => {
         })
 
         if(!allProfessionnel) return res.status(500).json({ messageError: "Erreur de connexion" })
-            
+
         allProfessionnel.forEach(element => {
             pros.push({
                 id: element.id,
@@ -31,7 +31,7 @@ export const getAllProfessionnel = async (req, res) => {
             })
         })
 
-        res.status(200).send(utilisateurs)
+        res.status(200).send(pros)
 
     } catch (error) {
         console.log(error);
