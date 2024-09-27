@@ -5,9 +5,10 @@ const prisma = new PrismaClient()
 
 export const getAllFournisseurs = async (req, res) => {
     try {
+        //select * from fournisseur join quartier on fournisseur.quartier = quartier.id
         const allFournisseurs = await prisma.fournisseur.findMany({
             include: {
-                quartier: true
+                Quartier: true
             }
         })
 
