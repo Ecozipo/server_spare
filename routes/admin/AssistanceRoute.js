@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { createAssistance } from "../../controllers/admin/AssistanceController.js"
+import { createAssistance, getAssistances } from "../../controllers/admin/AssistanceController.js"
 
 const router = Router()
 
