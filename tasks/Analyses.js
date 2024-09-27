@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { io } from "socket.io-client";
 import moment from "moment-timezone";
 import { format_data } from "../data/functions.js";
+import { setPercent } from "../data/State.js";
 
 const prisma = new PrismaClient()
 const socket = io("ws://localhost:5000")
@@ -39,6 +40,8 @@ export const analyses = async () => {
             let pourcentage = Math.round((difference / hier) * 100)
         
             console.log(avant_hier, hier, difference, pourcentage)
+
+            setPercent(pourcentage)
 
         }catch(error){
 

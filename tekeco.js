@@ -17,6 +17,7 @@ import AdminProRoute from './routes/admin/AdminProRoute.js'
 import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
 import ConsommationRoute from './routes/ConsommationRoute.js'
+import StatsRoute from './routes/StatsRoute.js'
 import { redisClient } from "./utils/redis.js"
 import { get_relay_state, set_relay_delta, set_relay_state } from "./data/Relais.js"
 import device from "./utils/awsDevice.js"
@@ -181,6 +182,7 @@ app.get('/state',(req,res)=>{
     const {reported} = get_relay_state()
     res.status(200).json(reported)
 })
+app.use("/stats", StatsRoute);
 app.use("/user", UserRoute);
 
 app.listen(3000, () => {

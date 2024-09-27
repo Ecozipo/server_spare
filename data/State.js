@@ -90,12 +90,35 @@ export const saveValue = async (value) => {
 
 // ----------------------------------------------------Pourcentage------------------------------------------------------------//
 
-let percentage = 0
+export const getPercent = async () => {
+    try{
+        const stats = await prisma.stats.findMany({
+            orderBy:{
+                date: 'desc'
+            },
+            take: 1
+        })
 
-export const getPercent = () => {
-    return percentage
+        return stats[0].percentage
+        
+    }catch(error){
+        console.log(error)
+    }
 }
 
-export const setPercent = (percent) => {
-    percentage = percent
+export const setPercent = async (percent) => {
+    
+    try {
+        const setStat = await prisma.stats.create({
+            data: {
+                percentage: parseFloat(percent).toFixed(2),
+                date: new Date()
+            }
+        })
+        console.log(setStat)
+    
+    } catch (error) {
+        console.log(error)
+    }
+
 }
