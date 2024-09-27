@@ -1,11 +1,7 @@
 import { PrismaClient } from "@prisma/client";
+import { format_data } from "../data/functions.js";
 
 const prisma = new PrismaClient()
-const format_data = (data)=>{
-    const cleanedString = data.slice(1, -1)
-    const jsonString = cleanedString.replace(/(\w+):/g, '"$1":')
-    return JSON.parse(jsonString)
-}
 
 export const journalier = async (req, res) => {
     const consommations = await prisma.consomation.findMany()

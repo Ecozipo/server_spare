@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import moment from "moment-timezone"
+import { format_data } from "./functions.js";
 
 const prisma = new PrismaClient();
 
@@ -47,7 +48,7 @@ export const saveValue = async (value) => {
         }
     )
     
-    console.log(JSON.stringify(value))
+    console.log(format_data(JSON.stringify(value)))
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
 
