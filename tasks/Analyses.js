@@ -16,11 +16,16 @@ export const analyses = async () => {
         temps[index] = parseInt(element)
     })
     
-    if (temps[0] === 1 && temps[1] === 0 && temps[2] === 0) {
+    if (temps[0] === 0 && temps[1] === 0 && temps[2] === 1) {
         
         try{
     
             const donnees = await prisma.consomation.findMany({
+                where: {
+                    date_consommation: {
+                        gte: new Date(new Date().setHours(0, 0, 0, 0))
+                    }
+                },
                 orderBy: {
                     id: 'desc'
                 },
@@ -48,7 +53,7 @@ export const analyses = async () => {
             console.log(error)
     
         }
-        
+
     }
 
 }
