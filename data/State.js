@@ -45,46 +45,45 @@ export const saveValue = async (value) => {
         temps[index] = parseInt(element)
     })
     
-    if (temps[0] === 0 && temps[1] === 0 && temps[2] === 0) {
 
-        try {
+    try {
 
-            const preview = await prisma.consomation.findMany(
-                {
-                    orderBy: {
-                        date_consommation: 'desc'
-                    },
-                    take: 1
-                }
-            )
+        const preview = await prisma.consomation.findMany(
+            {
+                orderBy: {
+                    date_consommation: 'desc'
+                },
+                take: 1
+            }
+        )
+    
+        console.log(preview)
+    
+        preview.forEach(element => {
+            element.valeur = format_data(element.valeur)
+        })
+    
+        let p_valeur = preview[0].valeur
+    
+        // console.log(preview[0], value)
+
+        const creation = await prisma.consomation.create({
+            data: {
+                valeur: JSON.stringify(`{power:${p_valeur.power},energy:${actual_value.energy-preview[0].total}}`),
+                total: actual_value.energy,
+                date_consommation: new Date()
+            }
+        })
+
+        console.log({ message: "Enregistrement effectué" , data: creation })
+
+    } catch (error) {
+
+        console.log({ errorMessage: "Erreur de connexion" })
+        console.log(error)
         
-            console.log(preview)
-        
-            preview.forEach(element => {
-                element.valeur = format_data(element.valeur)
-            })
-        
-            let p_valeur = preview[0].valeur
-        
-            // console.log(preview[0], value)
-
-            const creation = await prisma.consomation.create({
-                data: {
-                    valeur: JSON.stringify(`{power:${p_valeur.power},energy:${actual_value.energy-preview[0].total}}`),
-                    total: actual_value.energy,
-                    date_consommation: new Date()
-                }
-            })
-
-            console.log({ message: "Enregistrement effectué" , data: creation })
-
-        } catch (error) {
-
-            console.log({ errorMessage: "Erreur de connexion" })
-            console.log(error)
-            
-        }
     }
+    
 
 }
 
