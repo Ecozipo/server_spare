@@ -82,10 +82,6 @@ export const createFournisseur = async (req, res) => {
     }
 
     try {
-        // const admin = (await jwt.decode(token)).admin;
-        // if (!admin) {
-        //     return res.status(401).send({ errorMessage: "Token invalide" });
-        // }
 
         const fileSize = image.size; 
         const ext = path.extname(image.originalname);

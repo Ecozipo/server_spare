@@ -5,11 +5,15 @@ import path, { dirname } from "path"
 const prisma = new PrismaClient()
 
 export const addProfessionnal = async (req, res) => {
+
     const { nom, mail, telephone,quartier,type_pro } = req.body
-    const image = req.file
+
+    const image = req.file;
+
     if (!image) {
         return res.status(400).send({ errorMessage: "Aucun fichier uploadé." });
     }
+
     try {
 
         const fileSize = image.size;
@@ -26,12 +30,13 @@ export const addProfessionnal = async (req, res) => {
         if (fileSize > 5000000) {
             return res.status(400).json({ messageError: "Image devrait être moins de 5 MB" });
         }
-
-        if (!existsSync(imagePath)) {
-            mkdirSync(imagePath)
+        
+        const dir = path.dirname(imagePath);
+        if (!existsSync(dir)) {
+            mkdirSync(dir, { recursive: true });
         }
 
-        image.mv(imagePath, async (err) => {
+        fs.rename(image.path, imagePath, async (err) => {
             if (err) return res.status(500).json({ messageError: err.message });
 
             try {
@@ -48,6 +53,7 @@ export const addProfessionnal = async (req, res) => {
                 })
                 res.status(200).json(professionnel)
             } catch (error) {
+                console.log(error)
                 res.status(500).send({ errorMessage: "Internal server error" })
             }
         })
