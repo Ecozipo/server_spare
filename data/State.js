@@ -39,7 +39,7 @@ export const setData = (id, power) => {
 
 export const saveValue = async (value) => {
 
-    const preview_data = await prisma.consomation.findMany(
+    const preview = await prisma.consomation.findMany(
         {
             orderBy: {
                 date_consommation: 'desc'
@@ -47,8 +47,14 @@ export const saveValue = async (value) => {
             take: 1
         }
     )
-    
+    const p_data = format_data(preview[0].valeur)
+
     console.log(format_data(JSON.stringify(value)))
+
+    const actual_value = format_data(JSON.stringify(value))
+
+    console.log(`{inserted_power:${p_data.power},inserted_energy:${actual_value.energy-p_data.energy}}`)
+
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
 
