@@ -87,6 +87,7 @@ io.on('connection', (socket) => {
 
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
+            console.log(data)
             setPower({ power: data.power, energy: data.energy })
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
