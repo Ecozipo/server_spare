@@ -52,16 +52,15 @@ export const saveValue = async (value) => {
         preview.push({valeur:`{power:${0},energy:${0}}`,total:0})
     }
 
-    preview.forEach(element => {
-        element.valeur = format_data(element.valeur)
-    })
+    const p_valeur = format_data(JSON.stringify(preview[0].valeur))
 
-    const p_data = preview[0]
-    const { power } = p_data.valeur
+    console.log(preview[0], value)
+
+    console.log(format_data(JSON.stringify(value)), format_data(JSON.stringify(preview[0].valeur)))
 
     const actual_value = format_data(JSON.stringify(value))
 
-    console.log(`{inserted_power:${power},inserted_energy:${actual_value.energy-p_data.total}}`)
+    console.log(`{inserted_power:${p_valeur.power},inserted_energy:${actual_value.energy-preview[0].total}}`)
 
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
@@ -74,7 +73,7 @@ export const saveValue = async (value) => {
         try {
             const creation = await prisma.consomation.create({
                 data: {
-                    valeur: JSON.stringify(`{power:${p_data.power},energy:${actual_value.energy-p_data.total}}`),
+                    valeur: JSON.stringify(`{power:${p_data.power},energy:${actual_value.energy-preview[0].total}}`),
                     total: actual_value.energy,
                     date_consommation: new Date()
                 }
