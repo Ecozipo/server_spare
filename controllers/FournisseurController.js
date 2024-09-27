@@ -23,6 +23,7 @@ export const getAllFournisseurs = async (req, res) => {
         res.status(200).send(allFournisseurs)
 
     } catch (error) {
+        console.log(error)
         res.status(500).send({ errorMessage: "Internal server error" })
     }
 }
