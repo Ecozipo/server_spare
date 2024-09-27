@@ -8,7 +8,7 @@ const prisma = new PrismaClient()
 
 export const modifFournisseur = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
-    const { id,nom, telephone, quartier } = req.body;
+    const { id,nom, telephone,description, quartier } = req.body;
 
     const image = req.file
 
@@ -51,6 +51,7 @@ export const modifFournisseur = async (req, res) => {
                         nom,
                         telephone,
                         quartier,
+                        description,
                         image: fileName,
                         url,
                     }
