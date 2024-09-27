@@ -100,13 +100,15 @@ export const getPercent = async () => {
         })
 
         return stats[0].percentage
-        
+
     }catch(error){
         console.log(error)
     }
 }
 
 export const setPercent = async (percent) => {
+    
+    console.log(percent)
     
     try {
         const setStat = await prisma.stats.create({
