@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import moment from "moment-timezone";
 
 const prisma = new PrismaClient()
 
@@ -10,20 +9,14 @@ export const journalier = async (req, res) => {
 
 export const hebdomadaire = async (req, res) => {
     
-    const now_week_start = moment().startOf('week').toDate()
-    const now_week_end = moment().endOf('week').toDate()
-
-    const consommations = await prisma.consomation.findMany({
-        where: {
-            date: {
-                gte: now_week_start,
-                lte: now_week_end
-            }
-        }
+   const consommations = await prisma.consomation.findMany({
+        orderBy:{
+            date_consommation: 'desc'
+        },
+        take: 7
     })
 
     res.status(200).json(consommations)
-    
 }
 
 export const mensuel = (req, res) => {
@@ -32,4 +25,28 @@ export const mensuel = (req, res) => {
 
 export const restartByZero = (req, res) => {
 
+}
+
+export const stat_days = async (req,res)=>{
+
+    let values = []
+
+    const days = await prisma.consomation.findMany({
+        orderBy:{
+            date_consommation: 'desc'
+        },
+        take: 2
+    })
+
+    days.forEach(day => {
+        const value = JSON.parse(day.valeur)
+        values.push(parseInt(value.energy))
+    })
+
+
+    let percentage = parseFloat(((values[1]-values[0])/values[0])*100)
+
+    percentage = percentage.toFixed(2)
+    
+    res.status(200).json({percentage})
 }

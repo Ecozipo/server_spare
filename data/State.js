@@ -32,26 +32,26 @@ export const setData = (id, power) => {
 }
 
 export const saveValue = async (value) => {
-    const { power } = value
+    
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
     const temps = now.split(":")
-
     temps.forEach((element, index) => {
         temps[index] = parseInt(element)
     })
 
+    try {
+        const creation = await prisma.consomation.create({
+            data: {
+                valeur: JSON.stringify(value),
+                date_consommation: new Date()
+            }
+        })
+        console.log({ message: "Enregistrement effectué" , data: creation })
+    } catch (error) {
+        console.log({ errorMessage: "Erreur de connexion" })
+        console.log(error)
+    }
     if (temps[0] === 17 && temps[1] === 0 && temps[2] === 0) {
-        try {
-            const creation = await prisma.consomation.create({
-                data: {
-                    valeur: JSON.stringify(power),
-                    date_consommation: new Date()
-                }
-            })
-            console.log({ message: "Enregistrement effectué" })
-        } catch (error) {
-            console.log({ errorMessage: "Erreur de connexion" })
-            console.log(error)
-        }
+        console.log(temps)
     }
 }
