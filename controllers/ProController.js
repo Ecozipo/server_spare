@@ -6,7 +6,12 @@ const prisma = new PrismaClient()
 export const getAllProfessionnel = async (req, res) => {
     try {
 
-        const utilisateurs = prisma.professionnel.findMany()
+        const utilisateurs = prisma.professionnel.findMany({
+            include: {
+                Quartier: true,
+                TypeProfessionnel: true
+            }
+        })
 
         res.status(200).send(utilisateurs)
 
