@@ -5,7 +5,7 @@ import path, { dirname } from "path"
 const prisma = new PrismaClient()
 
 export const addProfessionnal = async (req, res) => {
-    const { nom, mail, telephone, quartier,type_pro } = req.body
+    const { nom, mail, telephone, description,quartier,type_pro } = req.body
     const image = req.file
     if (!image) {
         return res.status(400).send({ errorMessage: "Aucun fichier uploadé." });
@@ -41,6 +41,7 @@ export const addProfessionnal = async (req, res) => {
                         mail,
                         telephone,
                         quartier: parseInt(quartier),
+                        description: description,
                         image: fileName,
                         url,
                         type_pro: parseInt(type_pro)
