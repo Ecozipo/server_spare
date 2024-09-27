@@ -5,7 +5,11 @@ const prisma = new PrismaClient()
 
 export const getAllFournisseurs = async (req, res) => {
     try {
-        const allFournisseurs = await prisma.fournisseur.findMany()
+        const allFournisseurs = await prisma.fournisseur.findMany({
+            include: {
+                quartier: true
+            }
+        })
 
         res.status(200).send(allFournisseurs)
 
