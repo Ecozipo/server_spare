@@ -39,6 +39,15 @@ export const setData = (id, power) => {
 
 export const saveValue = async (value) => {
     
+    const actual_value = format_data(JSON.stringify(value))
+        
+    const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
+    const temps = now.split(":")
+
+    temps.forEach((element, index) => {
+        temps[index] = parseInt(element)
+    })
+    
     if (temps[0] === 0 && temps[1] === 0 && temps[2] === 0) {
 
         try {
@@ -61,15 +70,6 @@ export const saveValue = async (value) => {
             let p_valeur = preview[0].valeur
         
             // console.log(preview[0], value)
-        
-            const actual_value = format_data(JSON.stringify(value))
-        
-            const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
-            const temps = now.split(":")
-        
-            temps.forEach((element, index) => {
-                temps[index] = parseInt(element)
-            })
 
             const creation = await prisma.consomation.create({
                 data: {
