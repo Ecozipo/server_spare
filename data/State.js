@@ -58,8 +58,6 @@ export const saveValue = async (value) => {
 
     console.log(preview[0], value)
 
-    console.log(format_data(JSON.stringify(value)), format_data(JSON.stringify(preview[0].valeur)))
-
     const actual_value = format_data(JSON.stringify(value))
 
     const now = moment().tz('Indian/Antananarivo').format('HH:mm:ss')
