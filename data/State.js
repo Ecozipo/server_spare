@@ -48,6 +48,8 @@ export const saveValue = async (value) => {
         }
     )
 
+    console.log(preview)
+
     if(preview.length===0){
         preview.push({valeur:`{power:${0},energy:${0}}`,total:0})
     }
