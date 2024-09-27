@@ -18,7 +18,7 @@ export const hebdomadaire = async (req, res) => {
 
 
 
-    res.status(200).json(consommations.valeur)
+    res.status(200).json(consommations)
 }
 
 export const mensuel = (req, res) => {
