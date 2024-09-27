@@ -21,8 +21,9 @@ export const setId = (id) => {
     data.id = id
 }
 
-export const setPower = (power) => {
-    data.POWER = JSON.stringify(power)
+export const setPower = (valeur) => {
+    const { power, energy } = valeur
+    data.POWER = `{power:${power},energy:${energy}}`
 }
 
 export const setData = (id, power) => {
