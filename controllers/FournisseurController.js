@@ -10,7 +10,7 @@ export const getAllFournisseurs = async (req, res) => {
                 id:true,
                 nom:true,
                 telephone:true,
-                Quartier:{
+                quartier:{
                     select:{
                         quartier:true
                     }
