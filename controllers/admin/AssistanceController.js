@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import setNotification from "../../tasks/Notifications.js";
+import { io } from "socket.io-client";
+
+const socket = io("ws://localhost:5000");
 
 const prisma = new PrismaClient()
 
@@ -19,7 +21,7 @@ export const createAssistance = async (req, res) => {
             }
         })
 
-       Socket.emit('notification',JSON.stringify({titre,subject:description}))
+       socket.emit('notification',JSON.stringify({titre,subject:description}))
 
         res.status(200).json(assistance)
 
