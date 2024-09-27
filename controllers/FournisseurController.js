@@ -6,8 +6,18 @@ const prisma = new PrismaClient()
 export const getAllFournisseurs = async (req, res) => {
     try {
         const allFournisseurs = await prisma.fournisseur.findMany({
-            include: {
-                quartier: true
+            select:{
+                id:true,
+                nom:true,
+                telephone:true,
+                Quartier:{
+                    select:{
+                        quartier:true
+                    }
+                },
+                image:true,
+                description:true,
+                url:true
             }
         })
 

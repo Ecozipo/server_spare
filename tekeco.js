@@ -184,7 +184,7 @@ app.get('/state',(req,res)=>{
     const {reported} = get_relay_state()
     res.status(200).json(reported)
 })
-app.use("/stats", StatsRoute);
+app.use("/stat", StatsRoute);
 app.use("/user", UserRoute);
 
 app.listen(3000, () => {
