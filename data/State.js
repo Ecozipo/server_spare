@@ -109,11 +109,11 @@ export const getPercent = async () => {
 export const setPercent = async (percent) => {
     
     console.log(percent)
-    
+
     try {
         const setStat = await prisma.stats.create({
             data: {
-                percentage: parseFloat(percent).toFixed(2),
+                percentage: parseFloat(percent),
                 date: new Date()
             }
         })

@@ -39,7 +39,7 @@ export const analyses = async () => {
     
         console.log(avant_hier, hier, difference, pourcentage)
 
-        setPercent(parseFloat(pourcentage).toFixed(2))
+        setPercent(parseFloat(pourcentage))
 
     }catch(error){
 
