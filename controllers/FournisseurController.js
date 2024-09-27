@@ -7,7 +7,7 @@ export const getAllFournisseurs = async (req, res) => {
     try {
         const allFournisseurs = await prisma.fournisseur.findMany({
             include: {
-                Quartier: true
+                quartier: true
             }
         })
 
