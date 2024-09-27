@@ -7,11 +7,13 @@ const prisma = new PrismaClient()
 export const addProfessionnal = async (req, res) => {
 
     const { nom, mail, telephone,quartier,type_pro } = req.body
-    
+
     const image = req.file;
+    
     if (!image) {
         return res.status(400).send({ errorMessage: "Aucun fichier uploadé." });
     }
+
     try {
 
         const fileSize = image.size;
@@ -19,7 +21,7 @@ export const addProfessionnal = async (req, res) => {
         const fileName = [image.filename, ext].join('');
         const allowedTypes = ['.png', '.jpg', '.jpeg'];
 
-        const imagePath = path.resolve(path.dirname('assets'), 'assets', 'professionnel', fileName);
+        const imagePath = path.resolve(dirname('assets'), 'assets', 'professionnel', fileName);
         const url = `${req.protocol}://${req.get("host")}/assets/professionnel/${fileName}`;
 
         if (!allowedTypes.includes(ext.toLowerCase())) {
