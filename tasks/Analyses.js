@@ -26,10 +26,14 @@ export const analyses = async () => {
     })
     
     console.log(donnees)
-    const avant_hier = donnees[0]
-    const apres_hier = donnees[1]
 
+    const avant_hier = donnees[0].valeur.energy
+    const hier = donnees[1].valeur.energy
 
+    let difference = Math.abs(hier - avant_hier)
+    let pourcentage = Math.round((difference / hier) * 100)
+
+    console.log(avant_hier, hier, difference, pourcentage)
 
     if (temps[0] === 0 && temps[1] === 40 && temps[2] === 0) {
     }
