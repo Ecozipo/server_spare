@@ -88,9 +88,9 @@ io.on('connection', (socket) => {
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
             const { power, energy } = data
+            device.emit('vitesse', 'esp32/pzem', data.power)
+            device.emit('consommation', 'esp32/pzem', data.energy)
             setPower({power,energy})
-            device.emit('vitesse', 'esp32/pzem', power)
-            device.emit('consommation', 'esp32/pzem', energy)
             // device.emit('message', "esp32/pzem", JSON.stringify(payload))
         } 
 
@@ -120,22 +120,23 @@ io.on('connection', (socket) => {
     device.on('vitesse', (topic, payload) => {
 
         let data = parseFloat(payload)
-        let marge = data * 2
 
-        if (data >= marge && !notificationSent) {
+        // let marge = data * 2
 
-            console.log("Alerte sur consommation");
-            // setNotification({
-            //     titre: "Alerte sur consommation",
-            //     subject: "Votre consommation est très en hausse"
-            // });
+        // if (data >= marge && !notificationSent) {
 
-            notificationSent = true
-        }
+        //     console.log("Alerte sur consommation");
+        //     // setNotification({
+        //     //     titre: "Alerte sur consommation",
+        //     //     subject: "Votre consommation est très en hausse"
+        //     // });
 
-        if (data < marge) {
-            notificationSent = false
-        }
+        //     notificationSent = true
+        // }
+
+        // if (data < marge) {
+        //     notificationSent = false
+        // }
 
         socket.emit('vitesse',data)
     })
