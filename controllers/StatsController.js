@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { getPercent } from "../../data/State.js"
+import { getPercent } from "../data/State.js"
 
 
 const prisma = new PrismaClient()
