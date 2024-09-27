@@ -74,7 +74,7 @@ export const modifFournisseur = async (req, res) => {
 
 export const createFournisseur = async (req, res) => {
     // const token = req.headers.authorization.split(" ")[1];
-    const { nom, telephone, quartier } = req.body;
+    const { nom, telephone,description, quartier } = req.body;
 
     const image = req.file;
     if (!image) {
@@ -115,6 +115,7 @@ export const createFournisseur = async (req, res) => {
                     data: {
                         nom,
                         telephone,
+                        description,
                         quartier:parseInt(quartier),
                         image: fileName,
                         url,
