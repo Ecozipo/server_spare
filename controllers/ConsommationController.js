@@ -8,7 +8,7 @@ export const journalier = async (req, res) => {
 }
 
 export const hebdomadaire = async (req, res) => {
-    
+    console.log("hebdomadaire")
    const consommations = await prisma.consomation.findMany({
         orderBy:{
             date_consommation: 'desc'
