@@ -52,6 +52,7 @@ export const saveValue = async (value) => {
         preview.push({valeur:`{power:0,energy:0}`,total:0})
     }
 
+    console.log(preview, value)
     const p_data = format_data(preview[0].valeur)
 
     console.log(format_data(JSON.stringify(value)))
