@@ -136,3 +136,13 @@ model Notifications {
   titre      String
   created_at DateTime @default(now())
 }
+
+//-----------------------------------------Assistance-----------------------------------------
+
+model Assistance {
+  id          Int      @id @default(autoincrement())
+  titre       String
+  description String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}

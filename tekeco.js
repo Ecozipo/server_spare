@@ -6,6 +6,7 @@ import cron from "node-cron"
 import { saveValue, getPower, setPower } from "./data/State.js"
 import { analyses } from "./tasks/Analyses.js"
 import UserRoute from "./routes/admin/UserRoute.js"
+import AssistanceRoute from "./routes/admin/AssistanceRoute.js"
 import AuthRoute from "./routes/AuthRoute.js"
 import iotRoute from "./routes/iotRoute.js"
 import ProfessionalRoute from "./routes/ProfessionalRoute.js"
@@ -171,6 +172,7 @@ app.use('/admin/pro', AdminProRoute)
 app.use('/admin/auth', AdminAuthroute);
 app.use('/admin/shops', AdminFournisseurRoute);
 app.use("/auth", AuthRoute);
+app.use('/assistance', AssistanceRoute)
 app.use('/stats',ConsommationRoute)
 app.use('/device', deviceRoute);
 app.use('/download', DownloadRoute)
@@ -192,3 +194,4 @@ app.listen(3000, () => {
 
 cron.schedule('0 * * * *', () => { saveValue(getPower()) })
 cron.schedule('* * * * *', () => { analyses() })
+cron.schedule(`${Math.round(Math.random()*60)} ${Math.rouond(Math.random()*24)} * * *`, () => { getAssistances() })
