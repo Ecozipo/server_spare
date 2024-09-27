@@ -16,39 +16,36 @@ export const analyses = async () => {
         temps[index] = parseInt(element)
     })
     
-    if (temps[0] === 1 && temps[1] === 0 && temps[2] === 0) {
+    try{
 
-        try{
-
-            const donnees = await prisma.consomation.findMany({
-                orderBy: {
-                    id: 'desc'
-                },
-                take: 2
-            })
+        const donnees = await prisma.consomation.findMany({
+            orderBy: {
+                id: 'desc'
+            },
+            take: 2
+        })
+    
+        donnees.forEach(element => {
+            element.valeur = format_data(element.valeur)
+        })
         
-            donnees.forEach(element => {
-                element.valeur = format_data(element.valeur)
-            })
-            
-            console.log(donnees)
-        
-            const avant_hier = donnees[0].valeur.energy
-            const hier = donnees[1].valeur.energy
-        
-            let difference = Math.abs(hier - avant_hier)
-            let pourcentage = Math.round((difference / hier) * 100)
-        
-            console.log(avant_hier, hier, difference, pourcentage)
+        console.log(donnees)
+    
+        const avant_hier = donnees[0].valeur.energy
+        const hier = donnees[1].valeur.energy
+    
+        let difference = Math.abs(hier - avant_hier)
+        let pourcentage = Math.round((difference / hier) * 100)
+    
+        console.log(avant_hier, hier, difference, pourcentage)
 
-            setPercent(pourcentage)
+        setPercent(pourcentage)
 
-        }catch(error){
+    }catch(error){
 
-            console.log(error)
-
-        }
+        console.log(error)
 
     }
+    if (temps[0] === 1 && temps[1] === 0 && temps[2] === 0) {}
 
 }
