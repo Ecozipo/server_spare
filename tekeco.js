@@ -188,5 +188,5 @@ app.listen(3000, () => {
     console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 });
 
-cron.schedule('* * * * *', () => { saveValue({ id: getId(), power: getPower() }) })
+cron.schedule('* * * * *', () => { saveValue(getPower()) })
 cron.schedule('* * * * *', () => { analyses() })
