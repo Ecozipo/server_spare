@@ -49,7 +49,7 @@ export const saveValue = async (value) => {
     )
 
     if(preview.length===0){
-        preview.push({valeur:`{power:${0},energy:${0}`,total:0})
+        preview.push({valeur:`{power:${0},energy:${0}}`,total:0})
     }
 
     console.log(preview[0], value)
