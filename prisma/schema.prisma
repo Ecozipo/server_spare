@@ -122,6 +122,12 @@ model Consomation {
   date_consommation DateTime @default(now())
 }
 
+model Stats {
+  id          Int @id @default(autoincrement())
+  percentage  Float
+  date        DateTime @default(now())  
+}
+
 // ----------------------------------------Notifications------------------------------------
 
 model Notifications {

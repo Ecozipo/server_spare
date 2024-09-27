@@ -14,9 +14,6 @@ export const getPower = () => {
     return data.POWER;
 }
 
-export const getId = () => {
-    return data.id;
-}
 
 export const setId = (id) => {
     data.id = id
@@ -89,4 +86,16 @@ export const saveValue = async (value) => {
         }
     }
 
+}
+
+// ----------------------------------------------------Pourcentage------------------------------------------------------------//
+
+let percentage = 0
+
+export const getPercent = () => {
+    return percentage
+}
+
+export const setPercent = (percent) => {
+    percentage = percent
 }
