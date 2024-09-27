@@ -74,7 +74,7 @@ export const saveValue = async (value) => {
     try {
         const creation = await prisma.consomation.create({
             data: {
-                valeur: JSON.stringify(`{power:${p_data.power},energy:${actual_value.energy-preview[0].total}}`),
+                valeur: JSON.stringify(`{power:${p_valeur.power},energy:${actual_value.energy-preview[0].total}}`),
                 total: actual_value.energy,
                 date_consommation: new Date()
             }
