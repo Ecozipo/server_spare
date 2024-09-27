@@ -11,6 +11,7 @@ export const addProfessionnal = async (req, res) => {
     const image = req.file;
 
     if (!image) {
+        console.log(image)
         return res.status(400).send({ errorMessage: "Aucun fichier uploadé." });
     }
 
