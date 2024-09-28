@@ -96,10 +96,7 @@ model Module {
   id        Int    @id @default(autoincrement())
   nom       String
   type      Int
-  prix      Int
   reference String
-  image     String
-  url       String
 
   TypeModule TypeModule @relation(fields: [type], references: [id])
   createdAt  DateTime   @default(now())
