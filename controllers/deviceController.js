@@ -62,10 +62,7 @@ export const createDevice = async (req, res) => {
             data: {
                 nom,
                 type: parseInt(type),
-                prix: prix,
-                reference: reference,
-                image: fileName,
-                url
+                reference: reference
             }
         })
 
