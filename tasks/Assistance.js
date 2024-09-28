@@ -4,7 +4,7 @@ import device from "../utils/awsDevice.js";
 const prisma = new PrismaClient()
 
 export const getAssistances = async () => {
-    console.log("getAssistances")
+
     try{
 
         const assistance = await prisma.assistance.findMany({
