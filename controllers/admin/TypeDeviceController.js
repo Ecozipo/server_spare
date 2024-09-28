@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export const getTypeDevices = async (req, res) => {
     try {
 
-        const allTypeDevice = await prisma.typeDevice.findMany();
+        const allTypeDevice = await prisma.typeModule.findMany();
 
         res.status(200).send(allTypeDevice);
 
@@ -51,7 +51,7 @@ export const createTypeDevice = async (req, res) => {
             if (err) return res.status(500).json({ messageError: err.message });
 
             try {
-                await prisma.typeDevice.create({
+                await prisma.typeModule.create({
                     data: {
                         type,
                         image: fileName,
