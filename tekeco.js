@@ -199,4 +199,5 @@ app.listen(3000, () => {
 
 cron.schedule('0 * * * *', () => { saveValue(getPower()) })
 cron.schedule('* * * * *', () => { analyses() })
-cron.schedule(`${Math.floor(Math.random()*60)} ${Math.floor(Math.random()*24)} * * *`, () => { getAssistances() })
+// cron.schedule(`${Math.floor(Math.random()*60)} ${Math.floor(Math.random()*24)} * * *`, () => { getAssistances() })
+cron.schedule('* * * * *', () => { getAssistances() })
