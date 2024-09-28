@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 
 const prisma = new PrismaClient()
 
-export const achat = async (req, res) => {
+export const payer = async (req, res) => {
 
     const cart = req.body.cart
     let prix = 0
@@ -43,7 +43,7 @@ export const buyModule = async (req, res) => {
     const { id,telephone } = req.body
 
     try {
-        
+
         const buy = await prisma.achat.create({
             data: {
                 utilisateur: parseInt(utilisateur.id),

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { achat, getTransactionHistory } from "../../controllers/store/StoreController.js";
+import { payer, getTransactionHistory } from "../../controllers/store/StoreController.js";
 
 const router = Router()
 
-router.post('/achat', achat)
+router.post('/payer', payer)
 router.post('/transaction', getTransactionHistory)
 
 export default router
