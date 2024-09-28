@@ -55,8 +55,6 @@ export const createDevice = async (req, res) => {
     // }
 
     try{
-
-        const fileSize = image.size; 
        
         const device = await prisma.module.create({
             data: {
