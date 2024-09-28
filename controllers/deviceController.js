@@ -13,7 +13,7 @@ export const getDevices = async (req, res) => {
     })
 
     if(!devices) return res.status(500).json({message:"Erreur de connexion"})
-        
+
     devices.forEach(element => {
         data.push({
             id: element.id,
@@ -25,7 +25,7 @@ export const getDevices = async (req, res) => {
         })
     })
 
-    res.status(200).json(devices);
+    res.status(200).json(data);
 };
 
 export const getDevice = async (req, res) => {
