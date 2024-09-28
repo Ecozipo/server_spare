@@ -39,9 +39,6 @@ io.on('connection', (socket) => {
 
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
-        setInterval(() => {
-            device.emit('realtime', 'accepted', Math.floor(Math.random() * 100))
-        }, 1000)
 
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
@@ -83,11 +80,11 @@ io.on('connection', (socket) => {
     device.on('message', (topic, payload) => {
 
         if (topic === '$aws/events/presence/connected') {
-            console.log("client connecté")
+            device.emit('client_connected','$aws/events/presence/connected',payload)
         } 
 
         if (topic === '$aws/events/presence/disconnected') {
-            console.log("client deconnecté")
+            device.emit('client_disconnected','$aws/events/presence/disconnected',payload)
         } 
 
         if (topic === 'esp32/pzem') {
@@ -115,6 +112,13 @@ io.on('connection', (socket) => {
         }
 
     })
+    device.on('client_connected',(topic,payload)=>{
+        socket.emit("client_connected",payload)
+    })
+    device.on('client_disconnected',(topic,payload)=>{
+        socket.emit("client_disconnected",payload)
+    })
+
     device.on('state_led', (topic, payload) => {
         let data = payload
         socket.emit('state_led', data)
