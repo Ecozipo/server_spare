@@ -27,3 +27,33 @@ export const getTransactionHistory = async (req, res) => {
         res.status(401).json(err)
     }
 }
+
+export const getInSaleModules = async (req, res) => {
+    try {
+        const modules = await prisma.module.findMany()
+        res.status(200).json(modules)
+    } catch (err) {
+        console.log(err)
+        res.status(401).json(err)
+    }
+}
+
+export const buyModule = async (req, res) => {
+
+    const { id,telephone } = req.body
+
+    try {
+        
+        const buy = await prisma.achat.create({
+            data: {
+                utilisateur: parseInt(utilisateur.id),
+                module: parseInt(module.id),
+                payedAt: new Date()
+            }
+        })
+        res.status(200).json(buy)
+    } catch (err) {
+        console.log(err)
+        res.status(401).json(err)
+    }
+}

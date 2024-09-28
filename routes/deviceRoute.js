@@ -1,12 +1,14 @@
 import { Router } from "express";
-import { getDevice, getDevices, createDevice, updateDevice, deleteDevice } from "../controllers/deviceController.js";
+import { getDevices, createDevice, updateDevice, deleteDevice } from "../controllers/deviceController.js";
+import multer from "multer";
 
+const upload = multer({ dest: "assets/" });
 const router = Router();
 
-router.get("/all/:id", getDevices);
+router.get("/all", getDevices);
 // router.get("/", getDevices);
-router.post("/new/:id", createDevice);
-router.put("/update/:id", updateDevice);
-router.post("/delete/:id", deleteDevice);
+router.post("/new",upload.single('image'), createDevice);
+router.put("/update",upload.single('image'), updateDevice);
+router.post("/delete", deleteDevice);
 
 export default router;

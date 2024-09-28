@@ -19,6 +19,8 @@ import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
 import ConsommationRoute from './routes/ConsommationRoute.js'
 import StatsRoute from './routes/StatsRoute.js'
+import StoreRoute from './routes/store/StoreRoute.js'
+import { getAssistances } from "./tasks/Assistance.js"
 import { redisClient } from "./utils/redis.js"
 import { get_relay_state, set_relay_delta, set_relay_state } from "./data/Relais.js"
 import device from "./utils/awsDevice.js"
@@ -169,17 +171,18 @@ io.on('connection', (socket) => {
 app.use('/assets', express.static(path.resolve(dirname('assets'), 'assets',)));
 
 app.use('/admin/pro', AdminProRoute)
-app.use('/admin/auth', AdminAuthroute);
-app.use('/admin/shops', AdminFournisseurRoute);
-app.use("/auth", AuthRoute);
+app.use('/admin/auth', AdminAuthroute)
+app.use('/admin/shops', AdminFournisseurRoute)
+app.use("/auth", AuthRoute)
 app.use('/assistance', AssistanceRoute)
 app.use('/stats',ConsommationRoute)
-app.use('/device', deviceRoute);
+app.use('/device', deviceRoute)
 app.use('/download', DownloadRoute)
-app.use("/iot", iotRoute);
+app.use("/iot", iotRoute)
 app.use('/notification', NotificationRoute)
-app.use("/pro", ProfessionalRoute);
+app.use("/pro", ProfessionalRoute)
 app.use('/shops', FournisseurRoute)
+app.use('/store',StoreRoute)
 app.get('/state',(req,res)=>{
     const {reported} = get_relay_state()
     res.status(200).json(reported)
@@ -194,4 +197,4 @@ app.listen(3000, () => {
 
 cron.schedule('0 * * * *', () => { saveValue(getPower()) })
 cron.schedule('* * * * *', () => { analyses() })
-cron.schedule(`${Math.floor(Math.random()*61)} ${Math.floor(Math.random()*24)} * * *`, () => { getAssistances() })
+cron.schedule(`${Math.floor(Math.random()*60)} ${Math.floor(Math.random()*24)} * * *`, () => { getAssistances() })
