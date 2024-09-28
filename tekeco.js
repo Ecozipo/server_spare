@@ -19,6 +19,7 @@ import deviceRoute from './routes/deviceRoute.js'
 import DownloadRoute from './routes/download/DownloadRoute.js'
 import ConsommationRoute from './routes/ConsommationRoute.js'
 import StatsRoute from './routes/StatsRoute.js'
+import typeDeviceRoute from './routes/admin/TypeDeviceRoute.js'
 import StoreRoute from './routes/store/StoreRoute.js'
 import { getAssistances } from "./tasks/Assistance.js"
 import { redisClient } from "./utils/redis.js"
@@ -188,6 +189,7 @@ app.get('/state',(req,res)=>{
     res.status(200).json(reported)
 })
 app.use("/stat", StatsRoute);
+app.use('/devicetype',typeDeviceRoute)
 app.use("/user", UserRoute);
 
 app.listen(3000, () => {
