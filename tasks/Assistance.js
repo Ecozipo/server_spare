@@ -13,8 +13,6 @@ export const getAssistances = async () => {
             },
             skip: Math.round(Math.random()*10)
         })
-
-        console.log(assistance)
         const {titre,description} = assistance[0]
         device.emit('notification','push/notif',JSON.stringify({titre,subject:description}))
 
