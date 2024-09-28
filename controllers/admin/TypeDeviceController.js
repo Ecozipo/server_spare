@@ -60,8 +60,8 @@ export const createTypeDevice = async (req, res) => {
                 });
                 res.status(200).send({ messageSuccess: "TypeDevice ajouté avec succès" });
             } catch (error) {
-                res.status(500).send({ messageError: "Erreur de connexion" });
                 console.error(error);
+                res.status(500).send({ messageError: "Erreur de connexion" });
             }
         });
     } catch (error) {
