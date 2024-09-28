@@ -113,9 +113,11 @@ io.on('connection', (socket) => {
 
     })
     device.on('client_connected',(topic,payload)=>{
+        console.log(payload)
         socket.emit("client_connected",payload)
     })
     device.on('client_disconnected',(topic,payload)=>{
+        console.log(payload)
         socket.emit("client_disconnected",payload)
     })
 
