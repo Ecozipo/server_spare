@@ -4,24 +4,26 @@ const prisma = new PrismaClient();
 
 export const getDevices = async (req, res) => {
 
-    const { id } = req.params
+    const data = []
 
     const devices = await prisma.module.findMany({
         include: {
-            Utilisateur: true,
-            TypeModule: true,
-            Achat: true,
-        },
-        where: {
-            Achat: {
-                utilisateur: parseInt(id)
-            }
+            TypeModule: true
         }
     })
 
-    if (devices.length === 0) {
-        res.status(404).json({ message: "Aucun module trouvé" })
-    }
+    if(!devices) return res.status(500).json({message:"Erreur de connexion"})
+        
+    devices.forEach(element => {
+        data.push({
+            id: element.id,
+            nom: element.nom,
+            type: element.TypeModule.type,
+            reference: element.reference,
+            image: element.TypeModule.image,
+            url: element.TypeModule.url
+        })
+    })
 
     res.status(200).json(devices);
 };
@@ -43,16 +45,6 @@ export const getDevice = async (req, res) => {
 export const createDevice = async (req, res) => {
 
     const {nom,type,reference} = req.body
-
-    // const Utilisateur = await prisma.utilisateur.findUnique({
-    //     where: {
-    //         id: parseInt(id_utilisateur)
-    //     }
-    // })
-
-    // if(!Utilisateur){
-    //     res.status(404).json({message:"Utilisateur non trouvé"})
-    // }
 
     try{
        
