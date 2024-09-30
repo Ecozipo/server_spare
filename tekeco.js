@@ -86,11 +86,12 @@ io.on('connection', (socket) => {
 
         if (topic === '$aws/events/presence/connected') {
             device.emit('client_connected','$aws/events/presence/connected',payload)
-            
+            console.log('connecté"',payload)
         } 
 
         if (topic === '$aws/events/presence/disconnected') {
             device.emit('client_disconnected','$aws/events/presence/disconnected',payload)
+            console.log('déconnecté"',payload)
         } 
 
         if (topic === 'esp32/pzem') {
