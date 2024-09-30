@@ -12,7 +12,7 @@ export const journalier = async (req, res) => {
         
         const date = new Date(day.date_consommation)
 
-        return date.getHours() === date.getMinutes() === date.getSeconds() === 0
+        return date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0
         
     })
     
