@@ -5,7 +5,7 @@ import moment from "moment-timezone";
 const prisma = new PrismaClient()
 
 export const journalier = async (req, res) => {
-    const days = []
+    let days = []
     const consommations = await prisma.consomation.findMany()
 
     days = consommations.filter(day => {
