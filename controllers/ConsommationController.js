@@ -15,12 +15,21 @@ export const journalier = async (req, res) => {
         return date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0
         
     })
+
+    let consommation = []
     
     days.forEach(day => {
         day.valeur = format_data(day.valeur)
+
+        consommation.push(
+            {
+                date: day.date_consommation,
+                consommation: day.valeur.energy
+            }
+        )
     })
     
-    res.status(200).json(days)
+    res.status(200).json(consommation)
 }
 
 export const hebdomadaire = async (req, res) => {
