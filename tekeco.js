@@ -40,6 +40,11 @@ io.on('connection', (socket) => {
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
 
+        init_hours()
+        device.emit('hours','hours/active',getHours())
+        socket.emit('hours',getHours())
+
+        
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
             if (error) console.log(error)
@@ -80,9 +85,8 @@ io.on('connection', (socket) => {
     device.on('message', (topic, payload) => {
 
         if (topic === '$aws/events/presence/connected') {
-            init_hours()
             device.emit('client_connected','$aws/events/presence/connected',payload)
-            device.emit('hours','hours/active',getHours())
+            
         } 
 
         if (topic === '$aws/events/presence/disconnected') {
