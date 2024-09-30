@@ -56,7 +56,7 @@ export const hebdomadaire = async (req, res) => {
 
     last_week = days.filter(day => {
         const date = new Date(day.date_consommation)
-        return moment().tz(date,'Indian/Antananarivo').isBetween(last_week[0],last_week[1])
+        return moment().utc(date.toString()).isBetween(last_week[0],last_week[1])
     })
 
     let this_week = [
