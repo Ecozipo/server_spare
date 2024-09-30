@@ -70,12 +70,12 @@ io.on('connection', (socket) => {
 
     });
 
-
-    device.on('message', (topic, payload) => {
-        let data = JSON.parse(payload.toString())
-        socket.emit('consommation', data.energy)
-        socket.emit('vitesse', data.power)
-    })
+    //Tamle socket tsy nandeh teo 
+    // device.on('message', (topic, payload) => {
+    //     let data = JSON.parse(payload.toString())
+    //     socket.emit('consommation', data.energy)
+    //     socket.emit('vitesse', data.power)
+    // })
 
     device.on('message', (topic, payload) => {
 
@@ -132,7 +132,6 @@ io.on('connection', (socket) => {
     device.on('vitesse', (topic, payload) => {
 
         let data = parseFloat(payload)
-        console.log(data)
         // let marge = data * 2
 
         // if (data >= marge && !notificationSent) {
@@ -159,7 +158,6 @@ io.on('connection', (socket) => {
 
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
-        console.log(data)
         socket.emit('consommation', data)
     })
 
