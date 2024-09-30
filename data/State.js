@@ -113,7 +113,7 @@ export const setPercent = async (percent) => {
         const setStat = await prisma.stats.create({
             data: {
                 percentage: parseFloat(percent),
-                date: new Date()
+                date: moment().tz('Indian/Antananarivo').format('YYYY-MM-DD HH:mm:ss').toString()
             }
         })
         console.log(setStat)

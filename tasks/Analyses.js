@@ -16,35 +16,56 @@ export const analyses = async () => {
         temps[index] = parseInt(element)
     })
     
-    if (temps[0] === 0 && temps[1] === 0 && temps[2] === 1) {
+    // if (temps[0] === 0 && temps[1] === 0 && temps[2] === 1) {
         
         try{
+            const avant_hier =  moment().tz(timeZone).subtract(2, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss').toString()
+            const hier =  moment().tz(timeZone).subtract(1, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss').toString()
     
+            let consom_hier , consom_avant_hier = 0
+
             const donnees = await prisma.consomation.findMany({
                 where: {
                     date_consommation: {
-                        gte: new Date(new Date().setHours(0, 0, 0, 0))
+                        gte: avant_hier
                     }
                 },
                 orderBy: {
-                    id: 'desc'
+                    date_consommation: 'asc'
                 },
-                take: 7
+                take: 48
             })
         
             donnees.forEach(element => {
                 element.valeur = format_data(element.valeur)
             })
             
+            const avant_hier_data = donnees.filter(element =>{
+                let date = new Date(element.date_consommation).getDate()
+                return date === new Date(avant_hier).getDate()
+            })
+
+            const hier_data = donnees.filter(element =>{
+                let date = new Date(element.date_consommation).getDate()
+                return date === new Date(hier).getDate()
+            })
+            
+            avant_hier_data.forEach(element => {
+                consom_avant_hier += parseFloat(element.valeur.energy)
+            })
+
+            hier_data.forEach(element => {
+                consom_hier += parseFloat(element.valeur.energy)
+            })
+
             console.log(donnees)
         
-            const avant_hier = donnees[0].valeur.energy
-            const hier = donnees[1].valeur.energy
+            
         
-            let difference = Math.abs(hier - avant_hier)
-            let pourcentage = Math.round((difference / hier) * 100)
+            let difference = Math.abs(consom_hier - consom_avant_hier)
+            let pourcentage = Math.round((difference / consom_hier) * 100)
         
-            console.log(avant_hier, hier, difference, pourcentage)
+            console.log(consom_avant_hier, consom_hier, difference, pourcentage)
     
             setPercent(parseFloat(pourcentage))
     
@@ -54,6 +75,6 @@ export const analyses = async () => {
     
         }
 
-    }
+    // }
 
 }

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import jwt from "jsonwebtoken"
+import moment from "moment-timezone"
 
 const prisma = new PrismaClient()
 
@@ -48,7 +49,7 @@ export const buyModule = async (req, res) => {
             data: {
                 utilisateur: parseInt(utilisateur.id),
                 module: parseInt(module.id),
-                payedAt: new Date()
+                payedAt: moment().tz('Indian/Antananarivo').format('YYYY-MM-DD HH:mm:ss').toString()
             }
         })
         res.status(200).json(buy)
