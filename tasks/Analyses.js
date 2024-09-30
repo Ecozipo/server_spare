@@ -66,7 +66,7 @@ export const analyses = async () => {
             console.log({consom_avant_hier, consom_hier})
             
         
-            let difference = Math.abs(consom_hier - consom_avant_hier)
+            let difference = consom_hier - consom_avant_hier
             let pourcentage = Math.round((difference / consom_hier) * 100)
         
             console.log(consom_avant_hier, consom_hier, difference, pourcentage)
