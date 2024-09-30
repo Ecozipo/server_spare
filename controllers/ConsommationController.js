@@ -8,7 +8,13 @@ const getDays = async () => {
 
     let days = []
 
-    const consommations = await prisma.consomation.findMany()
+    const consommations = await prisma.consomation.findMany(
+        {
+            orderBy: {
+                date_consommation: 'asc'
+            },
+        }
+    )
 
     days = consommations.filter(day => {
         
