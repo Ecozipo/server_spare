@@ -3,7 +3,7 @@ import cors from "cors"
 import io from "./utils/socketio.js"
 import path, { dirname } from "path"
 import cron from "node-cron"
-import { saveValue, getPower, setPower, init_hours } from "./data/State.js"
+import { saveValue, getPower, setPower, init_hours, getHours } from "./data/State.js"
 import { analyses } from "./tasks/Analyses.js"
 import UserRoute from "./routes/admin/UserRoute.js"
 import AssistanceRoute from "./routes/admin/AssistanceRoute.js"
@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
         device.emit('hours','hours/active',getHours())
         socket.emit('hours',getHours())
 
-        
+
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
             if (error) console.log(error)
