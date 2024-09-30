@@ -24,7 +24,7 @@ export const analyses = async () => {
     
             let consom_hier = 0 , consom_avant_hier = 0
             console.log(avant_hier, hier, new Date(avant_hier).setHours(0,0,0,0))
-
+ 
             const donnees = await prisma.consomation.findMany({
                 where: {
                     date_consommation: {

@@ -35,7 +35,7 @@ export const journalier = async (req, res) => {
 
         consommation.push(
             {
-                date: day.date_consommation,
+                date: moment(day.date_consommation).locale('fr').format('dddd DD MMMM YYYY'),
                 consommation: day.valeur.energy
             }
         )
@@ -77,7 +77,7 @@ export const hebdomadaire = async (req, res) => {
     last_week.forEach(day => {
         consommations["last_week"].push(
             {
-                date: day.date_consommation,
+                date: moment(day.date_consommation).locale('fr').format('dddd DD MMMM YYYY'),
                 consommation: day.valeur.energy
             }
         )
@@ -86,7 +86,7 @@ export const hebdomadaire = async (req, res) => {
     this_week.forEach(day => {
         consommations["this_week"].push(
             {
-                date: day.date_consommation,
+                date: moment(day.date_consommation).locale('fr').format('dddd DD MMMM YYYY'),
                 consommation: day.valeur.energy
             }
         )
