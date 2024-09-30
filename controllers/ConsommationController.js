@@ -69,7 +69,10 @@ export const hebdomadaire = async (req, res) => {
         return moment(date).tz('Indian/Antananarivo').isBetween(this_week[0],this_week[1])
     })
 
-    let consommations = []
+    let consommations = {
+        this_week: [],
+        last_week: []
+    }
 
     last_week.forEach(day => {
         consommations["last_week"].push(
