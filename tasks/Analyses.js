@@ -19,8 +19,8 @@ export const analyses = async () => {
     // if (temps[0] === 0 && temps[1] === 0 && temps[2] === 1) {
         
         try{
-            const avant_hier =  moment().tz('Indian/Antananarivo').subtract(2, 'days').startOf('day').toISOString()
-            const hier =  moment().tz('Indian/Antananarivo').subtract(1, 'days').startOf('day').toISOString()
+            const avant_hier =  moment().tz('Indian/Antananarivo').utc().subtract(2, 'days').startOf('day').toISOString()
+            const hier =  moment().tz('Indian/Antananarivo').utc().subtract(1, 'days').startOf('day').toISOString()
     
             let consom_hier , consom_avant_hier = 0
             console.log(avant_hier, hier, new Date(avant_hier).setHours(0,0,0,0))
@@ -28,7 +28,7 @@ export const analyses = async () => {
             const donnees = await prisma.consomation.findMany({
                 where: {
                     date_consommation: {
-                        gte: avant_hier.toString().replace('Z','').replace('T',' '),
+                        gte: avant_hier
                     }
                 },
                 orderBy: {
