@@ -1,10 +1,21 @@
 import { PrismaClient } from "@prisma/client";
 import { format_data } from "../data/functions.js";
+import moment from "moment-timezone";
 
 const prisma = new PrismaClient()
 
 export const journalier = async (req, res) => {
-    const consommations = await prisma.consomation.findMany()
+    const days = []
+    const consommations = await prisma.consomation.findMany({
+        where: {
+            date_consommation: {
+                gte: moment().tz('Indian/Antananarivo').utc().startOf('day').toISOString()
+            }
+        },
+    })
+    consommations.forEach(element => {
+        element.valeur = format_data(element.valeur)
+    })
     res.status(200).json(consommations)
 }
 
