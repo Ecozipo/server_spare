@@ -71,7 +71,7 @@ export const saveValue = async (value) => {
             data: {
                 valeur: JSON.stringify(`{power:${p_valeur.power},energy:${actual_value.energy-preview[0].total}}`),
                 total: actual_value.energy,
-                date_consommation: moment().tz('Indian/Antananarivo').format('YYYY-MM-DD HH:mm:ss')
+                date_consommation: moment().tz('Indian/Antananarivo').toISOString()
             }
         })
 
@@ -113,7 +113,7 @@ export const setPercent = async (percent) => {
         const setStat = await prisma.stats.create({
             data: {
                 percentage: parseFloat(percent),
-                date: moment().tz('Indian/Antananarivo').format('YYYY-MM-DD HH:mm:ss')
+                date: moment().tz('Indian/Antananarivo').toISOString()
             }
         })
         console.log(setStat)
