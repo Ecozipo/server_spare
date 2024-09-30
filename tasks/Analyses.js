@@ -55,6 +55,7 @@ export const analyses = async () => {
             
             avant_hier_data.forEach(element => {
                 consom_avant_hier += parseFloat(element.valeur.energy)
+                console.log(element)
             })
 
             hier_data.forEach(element => {
@@ -62,7 +63,7 @@ export const analyses = async () => {
             })
 
             // console.log({avant_hier_data,hier_data})
-        
+            console.log({consom_avant_hier, consom_hier})
             
         
             let difference = Math.abs(consom_hier - consom_avant_hier)
