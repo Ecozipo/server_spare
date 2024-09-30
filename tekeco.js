@@ -39,11 +39,7 @@ io.on('connection', (socket) => {
 
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
-
         init_hours()
-        device.emit('hours','hours/active',getHours())
-        socket.emit('hours',getHours())
-
 
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
