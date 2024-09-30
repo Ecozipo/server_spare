@@ -131,8 +131,6 @@ export const getPercent = async () => {
 
 export const setPercent = async (percent) => {
     
-    console.log(percent)
-
     try {
         const setStat = await prisma.stats.create({
             data: {
@@ -140,7 +138,7 @@ export const setPercent = async (percent) => {
                 date: moment().tz('Indian/Antananarivo').utc().toISOString()
             }
         })
-        console.log(setStat)
+        // console.log(setStat)
     
     } catch (error) {
         console.log(error)

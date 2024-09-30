@@ -71,7 +71,7 @@ export const analyses = async () => {
         
             console.log(consom_avant_hier, consom_hier, difference,Math.round(pourcentage*1000)/1000)
     
-            setPercent(parseFloat(pourcentage))
+            setPercent(parseFloat(Math.round(pourcentage*1000)/1000))
     
         }catch(error){
     
