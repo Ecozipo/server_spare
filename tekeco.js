@@ -25,6 +25,7 @@ import { getAssistances } from "./tasks/Assistance.js"
 import { redisClient } from "./utils/redis.js"
 import { get_relay_state, set_relay_delta, set_relay_state } from "./data/Relais.js"
 import device from "./utils/awsDevice.js"
+import { invertState } from "./data/functions.js"
 
 const app = express();
 app.use(express.json());
@@ -104,6 +105,7 @@ io.on('connection', (socket) => {
             console.log(state)
             set_relay_state(state)
             const {reported} = state
+            invertState(reported)
             socket.emit('state',reported)
         }
 
