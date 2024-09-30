@@ -33,7 +33,7 @@ app.use(cors());
 
 
 // Socket.IO connection
-io.once('connection', (socket) => {
+io.on('connection', (socket) => {
     console.log('New client connected:', socket.id);
 
 
