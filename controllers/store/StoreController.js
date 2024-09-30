@@ -49,7 +49,7 @@ export const buyModule = async (req, res) => {
             data: {
                 utilisateur: parseInt(utilisateur.id),
                 module: parseInt(module.id),
-                payedAt: moment().tz('Indian/Antananarivo').format('YYYY-MM-DD HH:mm:ss').toString()
+                payedAt: moment().tz('Indian/Antananarivo').format('YYYY-MM-DD HH:mm:ss')
             }
         })
         res.status(200).json(buy)
