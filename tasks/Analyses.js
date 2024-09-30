@@ -23,12 +23,12 @@ export const analyses = async () => {
             const hier =  moment().tz('Indian/Antananarivo').subtract(1, 'days').startOf('day').toISOString()
     
             let consom_hier , consom_avant_hier = 0
-            console.log(avant_hier, hier)
+            console.log(avant_hier, hier, new Date(avant_hier).setHours(0,0,0,0))
 
             const donnees = await prisma.consomation.findMany({
                 where: {
                     date_consommation: {
-                        gte: new Date(avant_hier).setHours(0,0,0,0).toISOString()
+                        gte: new Date(avant_hier).setHours(0,0,0,0)
                     }
                 },
                 orderBy: {
