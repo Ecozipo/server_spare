@@ -3,9 +3,9 @@ import { hebdomadaire, journalier, mensuel, restartByZero } from "../controllers
 
 const router = Router()
 
-router.get('/journalier', journalier)
-router.get('/hebdomadaire',hebdomadaire)
-router.get('/mensuel',mensuel)
+router.get('/day', journalier)
+router.get('/week',hebdomadaire)
+router.get('/month',mensuel)
 router.get('/restart',restartByZero)
 
 export default router

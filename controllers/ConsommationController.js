@@ -6,17 +6,21 @@ const prisma = new PrismaClient()
 
 export const journalier = async (req, res) => {
     const days = []
-    const consommations = await prisma.consomation.findMany({
-        where: {
-            date_consommation: {
-                gte: moment().tz('Indian/Antananarivo').utc().startOf('day').toISOString()
-            }
-        },
+    const consommations = await prisma.consomation.findMany()
+
+    days = consommations.filter(day => {
+        
+        const date = new Date(day.date_consommation)
+
+        return date.getHours() === date.getMinutes() === date.getSeconds() === 0
+        
     })
-    consommations.forEach(element => {
-        element.valeur = format_data(element.valeur)
+    
+    days.forEach(day => {
+        day.valeur = format_data(day.valeur)
     })
-    res.status(200).json(consommations)
+    
+    res.status(200).json(days)
 }
 
 export const hebdomadaire = async (req, res) => {
