@@ -19,8 +19,8 @@ export const analyses = async () => {
     // if (temps[0] === 0 && temps[1] === 0 && temps[2] === 1) {
         
         try{
-            const avant_hier =  moment().tz(timeZone).subtract(2, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss').toString()
-            const hier =  moment().tz(timeZone).subtract(1, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss').toString()
+            const avant_hier =  moment().tz('Indian/Antananarivo').subtract(2, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss').toString()
+            const hier =  moment().tz('Indian/Antananarivo').subtract(1, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss').toString()
     
             let consom_hier , consom_avant_hier = 0
 
