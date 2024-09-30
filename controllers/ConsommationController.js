@@ -66,7 +66,7 @@ export const hebdomadaire = async (req, res) => {
 
     this_week = days.filter(day => {
         const date = new Date(day.date_consommation)
-        return moment().tz(date,'Indian/Antananarivo').isBetween(this_week[0],this_week[1])
+        return moment(date).tz('Indian/Antananarivo').isBetween(this_week[0],this_week[1])
     })
 
     let consommations = []
