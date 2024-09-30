@@ -1,19 +1,30 @@
 import { PrismaClient } from "@prisma/client";
 import moment from "moment-timezone"
 import { format_data } from "./functions.js";
+import io from "../utils/socketio.js";
+import device from "../utils/awsDevice.js";
 
+const socket = io("ws://localhost:5000");
 const prisma = new PrismaClient();
 
 
 let data = {
     id: 2,
-    POWER: '0'
+    POWER: '0',
+    heures : 0
 }
 
 export const getPower = () => {
     return data.POWER;
 }
+export const init_hours = async() => {
+    const hours = await prisma.consomation.count()
+    data.heures = parseInt(hours)
+}
 
+export const setHours = async (heures) => {
+    data.heures = heures
+}
 
 export const setId = (id) => {
     data.id = id
@@ -75,7 +86,13 @@ export const saveValue = async (value) => {
             }
         })
 
+        const hours = await prisma.consomation.count()
         console.log({ message: "Enregistrement effectué" , data: creation })
+
+        setHours(parseInt(hours))
+
+        device.emit('hours','hours/active',parseInt(hours))
+        socket.emit('hours',parseInt(hours))
 
     } catch (error) {
 
@@ -87,6 +104,13 @@ export const saveValue = async (value) => {
 
 }
 
+export const getHours = async () => {
+    try{
+        return data.heures
+    }catch(error){
+        console.log(error)
+    }
+}
 // ----------------------------------------------------Pourcentage------------------------------------------------------------//
 
 export const getPercent = async () => {

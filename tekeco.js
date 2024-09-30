@@ -3,7 +3,7 @@ import cors from "cors"
 import io from "./utils/socketio.js"
 import path, { dirname } from "path"
 import cron from "node-cron"
-import { saveValue, getPower, setPower } from "./data/State.js"
+import { saveValue, getPower, setPower, init_hours } from "./data/State.js"
 import { analyses } from "./tasks/Analyses.js"
 import UserRoute from "./routes/admin/UserRoute.js"
 import AssistanceRoute from "./routes/admin/AssistanceRoute.js"
@@ -25,7 +25,6 @@ import { getAssistances } from "./tasks/Assistance.js"
 import { redisClient } from "./utils/redis.js"
 import { get_relay_state, set_relay_delta, set_relay_state } from "./data/Relais.js"
 import device from "./utils/awsDevice.js"
-import { invertState } from "./data/functions.js"
 
 const app = express();
 app.use(express.json());
@@ -81,7 +80,9 @@ io.on('connection', (socket) => {
     device.on('message', (topic, payload) => {
 
         if (topic === '$aws/events/presence/connected') {
+            init_hours()
             device.emit('client_connected','$aws/events/presence/connected',payload)
+            device.emit('hours','hours/active',getHours())
         } 
 
         if (topic === '$aws/events/presence/disconnected') {
