@@ -131,7 +131,7 @@ io.once('connection', (socket) => {
     device.on('vitesse', (topic, payload) => {
 
         let data = parseFloat(payload)
-
+        console.log(data)
         // let marge = data * 2
 
         // if (data >= marge && !notificationSent) {
@@ -158,6 +158,7 @@ io.once('connection', (socket) => {
 
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
+        console.log(data)
         socket.emit('consommation', data)
     })
 

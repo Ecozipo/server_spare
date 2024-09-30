@@ -71,7 +71,7 @@ export const saveValue = async (value) => {
             data: {
                 valeur: JSON.stringify(`{power:${p_valeur.power},energy:${actual_value.energy-preview[0].total}}`),
                 total: actual_value.energy,
-                date_consommation: new Date()
+                date_consommation: now.toString()
             }
         })
 
