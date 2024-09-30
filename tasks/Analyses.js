@@ -16,7 +16,7 @@ export const analyses = async () => {
         temps[index] = parseInt(element)
     })
     
-    // if (temps[0] === 0 && temps[1] === 0 && temps[2] === 1) {
+    if (temps[0] === 0 && temps[1] === 0 && temps[2] === 1) {
         
         try{
             const avant_hier =  moment().tz('Indian/Antananarivo').utc().subtract(2, 'days').startOf('day').toISOString()
@@ -41,7 +41,8 @@ export const analyses = async () => {
                 element.valeur = format_data(element.valeur)
             })
 
-            console.log(donnees)
+            // Bien vérifier que l'heure commence à 00:00 et que la taille du vecteur soit égale à 24
+            // console.log(donnees)
             
             const avant_hier_data = donnees.filter(element =>{
                 let date = new Date(element.date_consommation).getDate()
@@ -55,7 +56,6 @@ export const analyses = async () => {
             
             avant_hier_data.forEach(element => {
                 consom_avant_hier += parseFloat(element.valeur.energy)
-                console.log(element)
             })
 
             hier_data.forEach(element => {
@@ -63,7 +63,7 @@ export const analyses = async () => {
             })
 
             // console.log({avant_hier_data,hier_data})
-            console.log({consom_avant_hier, consom_hier})
+            // console.log({consom_avant_hier, consom_hier})
             
         
             let difference = consom_hier - consom_avant_hier
@@ -79,6 +79,6 @@ export const analyses = async () => {
     
         }
 
-    // }
+    }
 
 }
