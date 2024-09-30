@@ -29,7 +29,7 @@ export const analyses = async () => {
                 orderBy: {
                     id: 'desc'
                 },
-                take: 2
+                take: 7
             })
         
             donnees.forEach(element => {
