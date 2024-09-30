@@ -28,7 +28,7 @@ export const analyses = async () => {
             const donnees = await prisma.consomation.findMany({
                 where: {
                     date_consommation: {
-                        gte: new Date(avant_hier).setHours(0,0,0,0)
+                        gte: avant_hier.toString().replace('Z','').replace('T',' '),
                     }
                 },
                 orderBy: {
