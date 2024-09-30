@@ -39,6 +39,8 @@ export const analyses = async () => {
             donnees.forEach(element => {
                 element.valeur = format_data(element.valeur)
             })
+
+            console.log(donnees)
             
             const avant_hier_data = donnees.filter(element =>{
                 let date = new Date(element.date_consommation).getDate()
@@ -58,7 +60,7 @@ export const analyses = async () => {
                 consom_hier += parseFloat(element.valeur.energy)
             })
 
-            console.log({avant_hier_data,hier_data})
+            // console.log({avant_hier_data,hier_data})
         
             
         
