@@ -6,6 +6,8 @@ const prisma = new PrismaClient()
 
 const getDays = async () => {
 
+    let days = []
+
     const consommations = await prisma.consomation.findMany()
 
     days = consommations.filter(day => {
