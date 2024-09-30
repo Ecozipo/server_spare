@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import moment from "moment-timezone"
 import { format_data } from "./functions.js";
-import io from "../utils/socketio.js";
+import { io } from "socket.io-client";
 import device from "../utils/awsDevice.js";
 
 const socket = io("ws://localhost:5000");
