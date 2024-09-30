@@ -9,6 +9,6 @@ export const getStats = async (req, res) => {
     res.status(200).json(await getPercent())
 }
 
-export const getHours = async (req, res) => {
+export const getHoursStats = async (req, res) => {
   res.status(200).json(await getHours())
 }
