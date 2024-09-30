@@ -105,7 +105,7 @@ io.on('connection', (socket) => {
             console.log(state)
             set_relay_state(state)
             const {reported} = state
-            invertState(reported)
+            // invertState(reported)
             socket.emit('state',reported)
         }
 
