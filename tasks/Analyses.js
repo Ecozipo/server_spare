@@ -58,7 +58,7 @@ export const analyses = async () => {
                 consom_hier += parseFloat(element.valeur.energy)
             })
 
-            console.log(donnees)
+            console.log({avant_hier_data,hier_data})
         
             
         
