@@ -1,30 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 import moment from "moment-timezone"
 import { format_data } from "./functions.js";
-import { io } from "socket.io-client";
-import device from "../utils/awsDevice.js";
 
-const socket = io("ws://localhost:5000");
 const prisma = new PrismaClient();
 
 
 let data = {
     id: 2,
-    POWER: '0',
-    heures : 0
+    POWER: '0'
 }
 
 export const getPower = () => {
     return data.POWER;
 }
-export const init_hours = async() => {
-    const hours = await prisma.consomation.count()
-    data.heures = parseInt(hours)
-}
 
-export const setHours = async (heures) => {
-    data.heures = heures
-}
 
 export const setId = (id) => {
     data.id = id
@@ -82,17 +71,11 @@ export const saveValue = async (value) => {
             data: {
                 valeur: JSON.stringify(`{power:${p_valeur.power},energy:${actual_value.energy-preview[0].total}}`),
                 total: actual_value.energy,
-                date_consommation: new Date(moment().tz('Indian/Antananarivo').toISOString())
+                date_consommation: new Date()
             }
         })
 
-        const hours = await prisma.consomation.count()
         console.log({ message: "Enregistrement effectué" , data: creation })
-
-        setHours(parseInt(hours))
-
-        device.emit('hours','hours/active',parseInt(hours))
-        socket.emit('hours',parseInt(hours))
 
     } catch (error) {
 
@@ -104,13 +87,6 @@ export const saveValue = async (value) => {
 
 }
 
-export const getHours = async () => {
-    try{
-        return data.heures
-    }catch(error){
-        console.log(error)
-    }
-}
 // ----------------------------------------------------Pourcentage------------------------------------------------------------//
 
 export const getPercent = async () => {
@@ -131,17 +107,33 @@ export const getPercent = async () => {
 
 export const setPercent = async (percent) => {
     
+    console.log(percent)
+
     try {
         const setStat = await prisma.stats.create({
             data: {
                 percentage: parseFloat(percent),
-                date: moment().tz('Indian/Antananarivo').utc().toISOString()
+                date: new Date()
             }
         })
-        // console.log(setStat)
+        console.log(setStat)
     
     } catch (error) {
         console.log(error)
     }
 
+}
+
+
+
+// Abonnement
+
+let total = 0
+
+export const getTotal = () => {
+    return total
+}
+
+export const setTotal = (valeur) => {
+    total = parseInt(valeur)
 }
