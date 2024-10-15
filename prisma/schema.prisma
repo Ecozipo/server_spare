@@ -147,3 +147,47 @@ model Assistance {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }
+
+// --------------------------------------Formulaire--------------------------------------------
+model Categ_modulAb{
+  id        Int @id @default(autoincrement())
+  nomCateg  String
+  Categ_abEau Categ_abEau[]
+  Categ_abElec Categ_abElec[]
+  Categ_abHybr Categ_abHybr[]
+  CalculAb CalculAb[]
+}
+
+model Categ_abEau{
+  id      Int @id @default(autoincrement())
+  idCategModulAb Int
+  nbre_pompe  Int
+  prix_pompe  Float
+
+  Categ_modulAb Categ_modulAb @relation(fields: [idCategModulAb],references: [id])
+}
+
+model Categ_abElec{
+  id Int @id @default(autoincrement())
+  idCategModulAb Int
+  nbre_ampoule  Int
+  prix_ampoule Float
+  nbre_prise Int
+  prix_prise Float
+
+  Categ_modulAb Categ_modulAb @relation(fields: [idCategModulAb],references: [id])
+}
+
+model Categ_abHybr{
+  id Int @id @default(autoincrement())
+  idCategModulAb Int
+
+  Categ_modulAb Categ_modulAb @relation(fields: [idCategModulAb],references: [id])
+}
+
+model CalculAb{
+  id Int @id @default(autoincrement())
+  categorie Int
+
+  Categ_modulAb Categ_modulAb @relation(fields: [categorie],references: [id])
+}
