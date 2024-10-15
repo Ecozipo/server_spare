@@ -21,9 +21,9 @@ export const getAllFournisseurs = async (req, res) => {
                 nom: element.nom,
                 telephone: element.telephone,
                 quartier: element.Quartier.quartier,
+                description: element.description,
                 url: element.url,
-                image: element.image,
-                devise: element.Quartier.description
+                image: element.image
             })
         })
 
