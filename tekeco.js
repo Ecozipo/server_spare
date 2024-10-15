@@ -3,7 +3,7 @@ import cors from "cors"
 import io from "./utils/socketio.js"
 import path, { dirname } from "path"
 import cron from "node-cron"
-import { saveValue, getPower, setPower, init_hours, getHours } from "./data/State.js"
+import { saveValue, getPower, setPower } from "./data/State.js"
 import { analyses } from "./tasks/Analyses.js"
 import UserRoute from "./routes/admin/UserRoute.js"
 import AssistanceRoute from "./routes/admin/AssistanceRoute.js"
@@ -25,21 +25,21 @@ import { getAssistances } from "./tasks/Assistance.js"
 import { redisClient } from "./utils/redis.js"
 import { get_relay_state, set_relay_delta, set_relay_state } from "./data/Relais.js"
 import device from "./utils/awsDevice.js"
+import Abonnement from './routes/Abonnement.js'
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-
+// injectData()
 // Socket.IO connection
-io.on('connection', (socket) => {
+io.once('connection', (socket) => {
     console.log('New client connected:', socket.id);
 
 
     device.on('connect', function () {
         console.log('Connected to AWS IoT Core');
-        init_hours()
 
         // After connecting, you may want to publish/subscribe to topics
         device.subscribe('esp32/pzem', (error, payload) => {
@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
 
     });
 
-    //Tamle socket tsy nandeh teo 
+
     // device.on('message', (topic, payload) => {
     //     let data = JSON.parse(payload.toString())
     //     socket.emit('consommation', data.energy)
@@ -82,18 +82,15 @@ io.on('connection', (socket) => {
 
         if (topic === '$aws/events/presence/connected') {
             device.emit('client_connected','$aws/events/presence/connected',payload)
-            console.log('connecté"',payload)
         } 
 
         if (topic === '$aws/events/presence/disconnected') {
             device.emit('client_disconnected','$aws/events/presence/disconnected',payload)
-            console.log('déconnecté"',payload)
         } 
 
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
             const { power, energy } = data
-            // console.log(data)
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
             setPower({power,energy})
@@ -104,10 +101,9 @@ io.on('connection', (socket) => {
             console.log("on est là")
             let data = (JSON.parse(payload.toString()))
             const { state } = data
-            // console.log(state)
+            console.log(state)
             set_relay_state(state)
             const {reported} = state
-            // invertState(reported)
             socket.emit('state',reported)
         }
 
@@ -136,6 +132,7 @@ io.on('connection', (socket) => {
     device.on('vitesse', (topic, payload) => {
 
         let data = parseFloat(payload)
+
         // let marge = data * 2
 
         // if (data >= marge && !notificationSent) {
@@ -178,6 +175,7 @@ io.on('connection', (socket) => {
     });
 });
 
+
 // Serve static files from the 'assets' folder
 app.use('/assets', express.static(path.resolve(dirname('assets'), 'assets',)));
 
@@ -201,6 +199,7 @@ app.get('/state',(req,res)=>{
 app.use("/stat", StatsRoute);
 app.use('/devicetype',typeDeviceRoute)
 app.use("/user", UserRoute);
+app.use("/abonnement",Abonnement)
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

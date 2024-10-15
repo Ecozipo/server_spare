@@ -90,6 +90,8 @@ model TypeModule {
   url   String
 
   type_module Module[]
+  ModulElec ModulElec[]
+  ModulEau ModulEau[]
 }
 
 model Module {
@@ -156,13 +158,21 @@ model Categ_modulAb{
   Categ_abElec Categ_abElec[]
   Categ_abHybr Categ_abHybr[]
   CalculAb CalculAb[]
+  Prix_ab Prix_ab[]
+}
+
+model Prix_ab{
+  id Int @id @default(autoincrement())
+  categorie Int
+  valeur String
+
+  Categ_modulAb Categ_modulAb @relation(fields: [categorie],references: [id])
 }
 
 model Categ_abEau{
   id      Int @id @default(autoincrement())
   idCategModulAb Int
   nbre_pompe  Int
-  prix_pompe  Float
 
   Categ_modulAb Categ_modulAb @relation(fields: [idCategModulAb],references: [id])
 }
@@ -171,9 +181,7 @@ model Categ_abElec{
   id Int @id @default(autoincrement())
   idCategModulAb Int
   nbre_ampoule  Int
-  prix_ampoule Float
   nbre_prise Int
-  prix_prise Float
 
   Categ_modulAb Categ_modulAb @relation(fields: [idCategModulAb],references: [id])
 }
@@ -188,6 +196,28 @@ model Categ_abHybr{
 model CalculAb{
   id Int @id @default(autoincrement())
   categorie Int
+  total Int
 
   Categ_modulAb Categ_modulAb @relation(fields: [categorie],references: [id])
+}
+
+model ModulEau{
+  id  Int @id @default(autoincrement())
+  libelle String 
+  robinets Int
+  prix Int
+  type Int
+
+  TypeModule TypeModule @relation(fields: [type],references: [id])
+}
+
+model ModulElec{
+  id Int @id @default(autoincrement())
+  libelle String
+  prises Int
+  ampoules Int
+  prix Int 
+  type Int
+
+  TypeModule TypeModule @relation(fields: [type],references: [id])
 }
