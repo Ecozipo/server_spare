@@ -9,3 +9,5 @@ router.get("/total",(req,res)=>{
     const total = getTotal()
     res.status(200).send(total)
 })
+
+export default router
