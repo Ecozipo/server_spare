@@ -6,7 +6,7 @@ const router = Router()
 const prisma = new PrismaClient()
 
 router.post("/calculer",calculer)
-router.get("/total",async (req,res)=>{
+router.get("/calculer",async (req,res)=>{
     const calcul = await prisma.calculAb.findMany({
         orderBy:{
             id: 'desc'
