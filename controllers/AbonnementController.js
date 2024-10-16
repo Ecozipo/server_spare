@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { setTotal } from "../data/State";
 
 const prisma = new PrismaClient();
 
@@ -77,6 +78,7 @@ export const calculer = async (req, res) => {
         }
     })
 
+    setTotal(total)
     res.status(200).json(total)
 
 }
