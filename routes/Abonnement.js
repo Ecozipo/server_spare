@@ -1,12 +1,21 @@
 import { Router } from "express";
 import { calculer } from "../controllers/AbonnementController.js";
-import { getTotal } from "../data/State.js";
+import { PrismaClient } from "@prisma/client";
 
 const router = Router()
+const prisma = new PrismaClient()
 
 router.post("/calculer",calculer)
-router.get("/total",(req,res)=>{
-    const total = getTotal()
+router.get("/total",async (req,res)=>{
+    const calcul = await prisma.calculAb.findMany({
+        orderBy:{
+            id: 'desc'
+        },
+        take: 1
+    })
+
+    let {total} = calcul[0]
+    
     res.status(200).json(total)
 })
 
