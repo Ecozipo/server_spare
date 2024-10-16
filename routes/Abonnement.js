@@ -7,7 +7,7 @@ const router = Router()
 router.post("/calculer",calculer)
 router.get("/total",(req,res)=>{
     const total = getTotal()
-    res.status(200).send(total)
+    res.status(200).json(total)
 })
 
 export default router
