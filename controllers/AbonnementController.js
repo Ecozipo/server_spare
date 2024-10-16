@@ -14,8 +14,9 @@ export const calculer = async (req, res) => {
      * 
      * submit : calculer
      */
+    const { client }=req.body
     const { categorie, nbre_module } = req.body;
-    const {robinets,ampoules,prises} = req.body
+    const { robinets,ampoules,prises } = req.body
 
     let prix_final = 0 
     let module = null
@@ -60,9 +61,21 @@ export const calculer = async (req, res) => {
             break
     }
 
-    const total = prix_final * parseInt(nbre_module)
+    const depart = (client === "foyer simple") ? 15000 : 400000
+    const total = prix_final * parseInt(nbre_module) + depart
 
-    await prisma.calculAb
+    const idCateg = await  prisma.categ_modulAb.findFirst({
+        where: {
+            nomCateg: categorie
+        }
+    })
+
+    await prisma.calculAb.create({
+        data: {
+            categorie: idCateg.id,
+            total: total
+        }
+    })
 
     res.status(200).send(total)
 
