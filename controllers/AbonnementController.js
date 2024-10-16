@@ -33,7 +33,7 @@ export const calculer = async (req, res) => {
             prix_final = parseInt(module.prix)
             
             break
-        case "electricite":
+        case "électricité":
             // const {ampoules,prises} = req.body
             module = await prisma.modulElec.findFirst({
                 where:{
@@ -77,6 +77,6 @@ export const calculer = async (req, res) => {
         }
     })
 
-    res.status(200).send(total)
+    res.status(200).json(total)
 
 }
