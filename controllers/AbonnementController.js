@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { setTotal } from "../data/State";
+import { setTotal } from "../data/State.js";
 
 const prisma = new PrismaClient();
 
