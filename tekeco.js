@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
             const { power, energy } = data
-            console.log(data)
+            writecsv(data)
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
             setPower({power,energy})
@@ -103,7 +103,6 @@ io.on('connection', (socket) => {
             let data = (JSON.parse(payload.toString()))
             const { state } = data
             // console.log(state)
-            writecsv(state)
             set_relay_state(state)
             const {reported} = state
             socket.emit('state',reported)
