@@ -91,6 +91,7 @@ io.once('connection', (socket) => {
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
             const { power, energy } = data
+            console.log(data)
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
             setPower({power,energy})
@@ -149,9 +150,7 @@ io.once('connection', (socket) => {
         // if (data < marge) {
         //     notificationSent = false
         // }
-        console.log(data)
 
-        device.emit('vitesse',data)
         socket.emit('vitesse',data)
     })
 
@@ -161,16 +160,10 @@ io.once('connection', (socket) => {
 
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
-        console.log(data)
-
-        device.emit('consommation', data)
         socket.emit('consommation', data)
     })
 
     device.on('notification', (topic, payload) => {
-        console.log(payload)
-        
-        device.emit('notification', payload)
         socket.emit('notification', payload)
     })
 
