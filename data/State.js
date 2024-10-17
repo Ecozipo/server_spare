@@ -4,7 +4,6 @@ import { format_data } from "./functions.js";
 import { createObjectCsvWriter } from "csv-writer";
 import path from "path";
 import { dirname } from "path";
-import fs from "fs";
 
 const prisma = new PrismaClient();
 
@@ -148,20 +147,18 @@ export const setTotal = (valeur) => {
 export const writecsv = async (data) => {
 
     const filePath = path.resolve(dirname('data'), 'data', 'stats.csv');
-    if(!fs.existsSync(filePath)){
 
-        const csvWriter = createCsvWriter({
-            path: filePath,
-            header: [
-                { id: 'voltage', title: 'voltage' },
-                { id: 'current', title: 'current' },
-                { id: 'energy', title: 'energy' },
-                { id: 'power', title: 'power' },
-                { id:'freq',title:'freq' },
-            ]
-        });
-
-    }
+    const csvWriter = createObjectCsvWriter({
+        path: filePath,
+        header: [
+            { id: 'voltage', title: 'voltage' },
+            { id: 'current', title: 'current' },
+            { id: 'energy', title: 'energy' },
+            { id: 'power', title: 'power' },
+            { id:'freq',title:'freq' },
+        ],
+        append: true
+    });
 
     const {voltage,current,energy,power,freq} = data
     
