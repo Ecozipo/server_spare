@@ -151,6 +151,7 @@ io.once('connection', (socket) => {
         // }
         console.log(data)
 
+        device.emit('vitesse',data)
         socket.emit('vitesse',data)
     })
 
@@ -161,11 +162,15 @@ io.once('connection', (socket) => {
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
         console.log(data)
+
+        device.emit('consommation', data)
         socket.emit('consommation', data)
     })
 
     device.on('notification', (topic, payload) => {
         console.log(payload)
+        
+        device.emit('notification', payload)
         socket.emit('notification', payload)
     })
 
