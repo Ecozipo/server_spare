@@ -1,6 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import moment from "moment-timezone"
 import { format_data } from "./functions.js";
+import { createObjectCsvWriter } from "csv-writer";
+import path from "path";
+import { dirname } from "path";
+import fs from "fs";
 
 const prisma = new PrismaClient();
 
@@ -136,4 +140,37 @@ export const getTotal = () => {
 
 export const setTotal = (valeur) => {
     total = parseInt(valeur)
+}
+
+
+// Ecriture csv
+
+export const writecsv = async (data) => {
+
+    const filePath = path.resolve(dirname('data'), 'data', 'stats.csv');
+    if(!fs.existsSync(filePath)){
+
+        const csvWriter = createCsvWriter({
+            path: filePath,
+            header: [
+                { id: 'voltage', title: 'voltage' },
+                { id: 'current', title: 'current' },
+                { id: 'energy', title: 'energy' },
+                { id: 'power', title: 'power' },
+                { id:'freq',title:'freq' },
+            ]
+        });
+
+    }
+
+    const {voltage,current,energy,power,freq} = data
+    
+    csvWriter.writeRecords([
+        { voltage, current, energy, power,freq }
+    ]).then(() => {
+        console.log(data);
+    }).catch((error) => {
+        console.log(error);
+    });
+
 }

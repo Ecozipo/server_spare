@@ -3,7 +3,7 @@ import cors from "cors"
 import io from "./utils/socketio.js"
 import path, { dirname } from "path"
 import cron from "node-cron"
-import { saveValue, getPower, setPower } from "./data/State.js"
+import { saveValue, getPower, setPower, writecsv } from "./data/State.js"
 import { analyses } from "./tasks/Analyses.js"
 import UserRoute from "./routes/admin/UserRoute.js"
 import AssistanceRoute from "./routes/admin/AssistanceRoute.js"
@@ -102,7 +102,8 @@ io.on('connection', (socket) => {
             console.log("on est là")
             let data = (JSON.parse(payload.toString()))
             const { state } = data
-            console.log(state)
+            // console.log(state)
+            writecsv(state)
             set_relay_state(state)
             const {reported} = state
             socket.emit('state',reported)
