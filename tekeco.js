@@ -90,12 +90,13 @@ io.on('connection', (socket) => {
 
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
-            const { power, energy } = data
+            const { power, energy, freq, pf } = data
+            console.log({ power, energy, freq, pf })
             writecsv(data)
-            device.emit('vitesse', 'esp32/pzem', data.power)
-            device.emit('consommation', 'esp32/pzem', data.energy)
-            device.emit('frequence',data.freq)
-            device.emit('facteur-puissance',data.pf)
+            device.emit('vitesse', 'esp32/pzem', power)
+            device.emit('consommation', 'esp32/pzem', energy)
+            device.emit('frequence',freq)
+            device.emit('facteur-puissance',pf)
             setPower({power,energy})
             // device.emit('message', "esp32/pzem", JSON.stringify(payload))
         } 
