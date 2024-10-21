@@ -156,14 +156,15 @@ export const writecsv = async (data) => {
             { id: 'energy', title: 'energy' },
             { id: 'power', title: 'power' },
             { id:'freq',title:'freq' },
+            { id:'pf',title:'pf'}
         ],
         append: true
     });
 
-    const {voltage,current,energy,power,freq} = data
+    const {voltage,current,energy,power,freq, pf} = data
     
     csvWriter.writeRecords([
-        { voltage, current, energy, power,freq }
+        { voltage, current, energy, power,freq, pf}
     ]).then(() => {
         console.log(data);
     }).catch((error) => {
