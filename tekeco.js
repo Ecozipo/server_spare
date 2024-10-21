@@ -150,11 +150,13 @@ io.on('connection', (socket) => {
 
     device.on('frequence',(topic,payload)=>{
         let data = parseFloat(payload)
+        console.log({freq:data})
         socket.emit('frequence',data)
     })
 
     device.on('facteur-puissance',(topic,payload)=>{
         let data = parseFloat(payload)
+        console.log({pf:data})
         socket.emit('facteur-puissance',data)
     })
 

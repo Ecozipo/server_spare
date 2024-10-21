@@ -166,7 +166,7 @@ export const writecsv = async (data) => {
     csvWriter.writeRecords([
         { voltage, current, energy, power,freq, pf}
     ]).then(() => {
-        console.log(data);
+        /* console.log(data); */
     }).catch((error) => {
         console.log(error);
     });
