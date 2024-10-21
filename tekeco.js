@@ -95,8 +95,8 @@ io.on('connection', (socket) => {
             writecsv(data)
             device.emit('vitesse', 'esp32/pzem', power)
             device.emit('consommation', 'esp32/pzem', energy)
-            device.emit('frequence',freq)
-            device.emit('facteur-puissance',pf)
+            device.emit('frequence','esp32/pzem',freq)
+            device.emit('facteur-puissance','esp32/pzem',pf)
             setPower({power,energy})
             // device.emit('message', "esp32/pzem", JSON.stringify(payload))
         } 
