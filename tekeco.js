@@ -94,6 +94,8 @@ io.on('connection', (socket) => {
             writecsv(data)
             device.emit('vitesse', 'esp32/pzem', data.power)
             device.emit('consommation', 'esp32/pzem', data.energy)
+            device.emit('frequence',data.freq)
+            device.emit('facteur-puissance',data.pf)
             setPower({power,energy})
             // device.emit('message', "esp32/pzem", JSON.stringify(payload))
         } 
@@ -161,6 +163,14 @@ io.on('connection', (socket) => {
     device.on('consommation', (topic, payload) => {
         let data = parseFloat(payload)
         socket.emit('consommation', data)
+    })
+
+    device.on('frequence',(topic,payload)=>{
+        socket.emit('frequence',payload)
+    })
+
+    device.on('facteur-puissance',(topic,payload)=>{
+        socket.emit('facteur-puissance',payload)
     })
 
     device.on('notification', (topic, payload) => {
