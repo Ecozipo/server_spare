@@ -82,7 +82,7 @@ export const saveValue = async (value) => {
 
         const hours = await prisma.consomation.count()
 
-        device.emit("hourState",hours)
+        device.emit("hourState",'esp32/pzem',hours)
         socket.emit('hourState',hours)
         
 

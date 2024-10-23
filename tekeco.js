@@ -90,13 +90,16 @@ io.on('connection', (socket) => {
 
         if (topic === 'esp32/pzem') {
             let data = JSON.parse(payload.toString())
-            const { power, energy, freq, pf } = data
-            console.log({ power, energy, freq, pf })
+            const { power, energy, freq, pf, debit, tank } = data
+            // console.log({ power, energy, freq, pf })
             // writecsv(data)
             device.emit('vitesse', 'esp32/pzem', power)
             device.emit('consommation', 'esp32/pzem', energy)
             device.emit('frequence','esp32/pzem',freq)
             device.emit('facteur-puissance','esp32/pzem',pf)
+            device.emit('debit','esp32/pzem',debit)
+            devic.emit('tank','esp32/pzem',tank)
+
             setPower({power,energy})
             // device.emit('message', "esp32/pzem", JSON.stringify(payload))
         } 
@@ -159,6 +162,17 @@ io.on('connection', (socket) => {
         let data = parseFloat(payload)
         console.log({pf:data})
         socket.emit('facteur-puissance',data)
+    })
+
+    device.on('debit',(topic,payload)=>{
+        let data = parseFloat(payload)
+        // console.log({pf:data})
+        socket.emit('debit',data)
+    })
+
+    device.on('tank',(topic,payload)=>{
+        let data = parseFloat(payload)
+        socket.emit('tank',data)
     })
 
     device.on('notification', (topic, payload) => {
