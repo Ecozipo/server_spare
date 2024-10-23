@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
             let data = JSON.parse(payload.toString())
             const { power, energy, freq, pf } = data
             console.log({ power, energy, freq, pf })
-            writecsv(data)
+            // writecsv(data)
             device.emit('vitesse', 'esp32/pzem', power)
             device.emit('consommation', 'esp32/pzem', energy)
             device.emit('frequence','esp32/pzem',freq)
