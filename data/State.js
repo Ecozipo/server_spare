@@ -4,9 +4,11 @@ import { format_data } from "./functions.js";
 import { createObjectCsvWriter } from "csv-writer";
 import path from "path";
 import { dirname } from "path";
+import device from "../utils/awsDevice.js";
+import { io } from "socket.io-client";
 
 const prisma = new PrismaClient();
-
+const socket = io("ws://localhost:5000");
 
 let data = {
     id: 2,
@@ -77,6 +79,12 @@ export const saveValue = async (value) => {
                 date_consommation: new Date()
             }
         })
+
+        const hours = await prisma.consomation.count()
+
+        device.emit("hourState",hours)
+        socket.emit('hourState',hours)
+        
 
         console.log({ message: "Enregistrement effectué" , data: creation })
 
